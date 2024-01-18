@@ -1,4 +1,4 @@
-name: Check Server Status
+name: Refresh Server Status Page
 
 on:
   schedule:
@@ -19,13 +19,10 @@ jobs:
 
       - name: Send Request to Server
         run: |
-          # Replace 'http://your-server-url' with the actual URL of your server
-          SERVER_URL="http://your-server-url"
+          SERVER_URL="https://status.leicraftmc.de/util/api/refresh"
 
-          # Use curl to send a request to the server with a token in the header
           RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $TOKEN" $SERVER_URL)
 
-          # Check the HTTP response code
           if [ $RESPONSE -eq 200 ]; then
               echo "Server is Online"
               echo "::set-output name=status::success"
