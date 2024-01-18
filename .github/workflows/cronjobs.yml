@@ -1,0 +1,39 @@
+name: Check Server Status
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  check-server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up environment variables
+        run: |
+          # Set the environment variable with the token from secrets
+          echo "TOKEN=${{ secrets.YOUR_TOKEN_SECRET }}" >> $GITHUB_ENV
+
+      - name: Send Request to Server
+        run: |
+          # Replace 'http://your-server-url' with the actual URL of your server
+          SERVER_URL="http://your-server-url"
+
+          # Use curl to send a request to the server with a token in the header
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $TOKEN" $SERVER_URL)
+
+          # Check the HTTP response code
+          if [ $RESPONSE -eq 200 ]; then
+              echo "Server is Online"
+              echo "::set-output name=status::success"
+          else
+              echo "Server is Offline"
+              echo "::set-output name=status::failure"
+              # Add additional actions if needed (e.g., send an alert)
+          fi
+
+      - name: Echo Job Status
+        run: echo "Job Status ${{ needs.check-server.outputs.status }}"
