@@ -19,8 +19,7 @@ jobs:
 
       - name: Send Request to Server
         run: |
-          #SERVER_URL="https://status.leicraftmc.de/util/api/refresh"
-          SERVER_URL="https://client.leicraftmc.de/"
+          SERVER_URL="https://status.leicraftmc.de/util/api/refresh"
 
           RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $TOKEN" $SERVER_URL)
 
