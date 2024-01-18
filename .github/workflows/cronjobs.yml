@@ -15,7 +15,7 @@ jobs:
       - name: Set up environment variables
         run: |
           # Set the environment variable with the token from secrets
-          echo "TOKEN=${{ secrets.YOUR_TOKEN_SECRET }}" >> $GITHUB_ENV
+          echo "TOKEN=${{ secrets.SERVER_STATUS_TOKEN }}" >> $GITHUB_ENV
 
       - name: Send Request to Server
         run: |
