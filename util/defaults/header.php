@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg lei-nav navbar-dark fixed-top">
-    <div class="container nav-con">
-        <a class="navbar-brand nav-logo justify-content-center" href="/">
+    <div class="container nav-con justify-content-center">
+        <a class="navbar-brand nav-logo m-0" href="/">
             <div class="d-flex align-items-center">
                 <div class="flex-shrink-0 nav-logo-logo d-flex align-items-center">
                     <img src="/util/img/icon.png" alt="Logo" width="45" height="45" class="d-inline-block align-text-top nav-logo-logo-img">
