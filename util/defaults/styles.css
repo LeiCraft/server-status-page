@@ -1,0 +1,95 @@
+body {
+    font-family: "Rubik", sans-serif;
+    background-color: #0b0c1b;
+    color: white;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    min-height:100vh; 
+    display:flex; 
+    flex-direction:column; 
+    justify-content:space-between;
+    word-wrap: break-word;
+}
+@media only screen and (min-width: 1600px) {
+  .container {
+    min-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+.lei-nav {
+    background-color: #0d6efd;
+    font-weight: 500;
+}
+main {
+    margin-top: 140px;
+}
+.nav-logo-text {
+    padding-left: 6px;
+    margin: 0;
+    font-weight: 600;
+}
+.nav-logo-logo {
+    padding-right: 6px;
+}
+.nav-logo-logo-img {
+    margin: auto;
+}
+.footer {
+    margin-top: 50px;
+    margin-bottom: 0;
+}
+.footer-row {
+    text-align: center;
+}
+.footer-legal {
+    background-color: #1a1b2e;
+}
+.legal-text {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 0;
+    background-color: #1a1b2e;
+}
+.fbtn-div {
+    text-align: center;
+    margin-top: 30px; 
+}
+.lbtn {
+    border: #0d6efd 4px solid;
+    text-align: center;
+}
+.fbtn {
+    border: #0d6efd 4px solid;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 160px;
+}
+.lbtn:hover {
+    background-color: #0b0c1b;
+}
+.lei-nav-link {
+    color: white;
+    text-decoration: none;
+    background-color: #0d6efd;
+    text-align: center;
+}
+.lei-nav-link:hover {
+    color: rgb(255, 0, 0);
+    background-color: #0d6efd;
+}
+.active-item {
+    color: rgb(0, 255, 255) !important;
+}
+.lei-fnav-link {
+    color: #6c757d;
+    text-decoration: none;
+}
+.lei-fnav-link:hover {
+    color: rgb(255, 0, 0);
+}
+
