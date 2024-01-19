@@ -1,0 +1,37 @@
+name: Refresh Server Status Page
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  check-server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up environment variables
+        run: |
+          # Set the environment variable with the token from secrets
+          echo "TOKEN=${{ secrets.SERVER_STATUS_TOKEN }}" >> $GITHUB_ENV
+
+      - name: Send Request to Server
+        run: |
+          #SERVER_URL="https://status.leicraftmc.de/util/api/refresh"
+          SERVER_URL="https://client.leicraftmc.de/"
+
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $TOKEN" $SERVER_URL)
+
+          if [ $RESPONSE -eq 200 ]; then
+              echo "Server is Online"
+              echo "::set-output name=status::success"
+          else
+              echo "Server is Offline"
+              echo "::set-output name=status::failure"
+              # Add additional actions if needed (e.g., send an alert)
+          fi
+
+      - name: Echo Job Status
+        run: echo "Job Status ${{ needs.check-server.outputs.status }}"
