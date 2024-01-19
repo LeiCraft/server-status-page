@@ -14,6 +14,11 @@
             justify-content: center;
             height: 100vh;
             background-color: #f5f5f5;
+            transition: background-color 0.3s ease; /* Smooth transition for dark mode */
+        }
+
+        body.dark-mode {
+            background-color: #333;
         }
 
         #chart-container {
@@ -68,6 +73,11 @@
                 return 'rgba(0, 128, 0, 0.8)';
             }
         }
+
+        // Dark mode toggle functionality
+        document.body.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
     </script>
 </body>
 </html>
