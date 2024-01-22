@@ -35,6 +35,7 @@
         }
         .host-status-component {
             border-top: 1px #E0E0E0, solid;
+            background-color: #1a1b2e;
         }
         .host-current-status {
             float: right;
