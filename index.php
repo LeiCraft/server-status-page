@@ -34,8 +34,13 @@
             padding: 12px 20px;
         }
         .host-status-component {
-            border-top: 1px white solid;
+            border-left: 1px white solid;
+            border-right: 1px white solid;
+            border-buttom: 1px white solid;
             background-color: #1a1b2e;
+        }
+        .host-status-component:first-child {
+            border-top: 1px white solid;
         }
         .host-current-status {
             float: right;
