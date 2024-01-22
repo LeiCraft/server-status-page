@@ -16,7 +16,7 @@
             <div class="host-status-section mt-5 d-flex flex-column">
 
                 <div class="main-host host-status-container">
-                    <div class="host-status-inner-">
+                    <div class="host-status-inner-container">
                         <div class="host-name-container">
                             <span class="host-name">Main Server</span>
                             <span class="host-current-status">Online</span>
