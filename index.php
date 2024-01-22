@@ -7,10 +7,11 @@
 
     <main>
         <div class="container">
-            <div class="total-status text-center h4">Alle Systeme Online</div>
+            <div class="total-status text-center h4 mb-5">Alle Systeme Online</div>
+
+
         </div>
     </main>
-    <div></div>
 
     <footer class="footer" id="footer"><?php include $_SERVER['DOCUMENT_ROOT'] . "/util/defaults/footer.php"; ?></footer>
 
@@ -19,7 +20,6 @@
             padding: 12px 20px;
             color: white;
             background-color: #198754;
-
         }
     </style>
 
