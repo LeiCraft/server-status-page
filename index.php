@@ -27,25 +27,87 @@
                                     </svg>
                                 </div>
                             </div>
-                        </div>
-                        <div class="collapse" id="main-host-collapse"></div>
-                    </div>
-                </div>
-
-                <div class="main-host host-status-container">
-                    <div class="host-status-inner-container">
-                        <div class="host-title-container">
-                            <div class="host-title collapsed" data-bs-toggle="collapse" href="#main-host-collapse" role="button" aria-expanded="false" aria-controls="main-host-collapse" type="button">
-                                <div class="host-title-text h5 mb-0">Main Server</div>
-                                <div class="host-current-status ms-auto">Online</div>
-                                <div class="host-title-extend-img">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down host-title-arrow-icon" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke="currentColor" stroke-width="2"></path>
-                                    </svg>
+                            <div class="collapse mt-5" id="main-host-collapse">
+                                <div class="host-status-inner-container">
+                                    <div class="host-title-container">
+                                        <div class="host-title collapsed" data-bs-toggle="collapse" href="#main-host-collapse2" role="button" aria-expanded="false" aria-controls="main-host-collapse2" type="button">
+                                            <div class="host-title-text h5 mb-0">Main Server</div>
+                                            <div class="host-current-status ms-auto">Online</div>
+                                            <div class="host-title-extend-img">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down host-title-arrow-icon" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke="currentColor" stroke-width="2"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="host-status-inner-container">
+                                    <div class="host-title-container">
+                                        <div class="host-title collapsed" data-bs-toggle="collapse" href="#main-host-collapse2" role="button" aria-expanded="false" aria-controls="main-host-collapse2" type="button">
+                                            <div class="host-title-text h5 mb-0">Main Server</div>
+                                            <div class="host-current-status ms-auto">Online</div>
+                                            <div class="host-title-extend-img">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down host-title-arrow-icon" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke="currentColor" stroke-width="2"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="host-status-inner-container">
+                                    <div class="host-title-container">
+                                        <div class="host-title collapsed" data-bs-toggle="collapse" href="#main-host-collapse2" role="button" aria-expanded="false" aria-controls="main-host-collapse2" type="button">
+                                            <div class="host-title-text h5 mb-0">Main Server</div>
+                                            <div class="host-current-status ms-auto">Online</div>
+                                            <div class="host-title-extend-img">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down host-title-arrow-icon" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke="currentColor" stroke-width="2"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="host-status-inner-container">
+                                    <div class="host-title-container">
+                                        <div class="host-title collapsed" data-bs-toggle="collapse" href="#main-host-collapse2" role="button" aria-expanded="false" aria-controls="main-host-collapse2" type="button">
+                                            <div class="host-title-text h5 mb-0">Main Server</div>
+                                            <div class="host-current-status ms-auto">Online</div>
+                                            <div class="host-title-extend-img">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down host-title-arrow-icon" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke="currentColor" stroke-width="2"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="host-status-inner-container">
+                                    <div class="host-title-container">
+                                        <div class="host-title collapsed" data-bs-toggle="collapse" href="#main-host-collapse2" role="button" aria-expanded="false" aria-controls="main-host-collapse2" type="button">
+                                            <div class="host-title-text h5 mb-0">Main Server</div>
+                                            <div class="host-current-status ms-auto">Online</div>
+                                            <div class="host-title-extend-img">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down host-title-arrow-icon" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke="currentColor" stroke-width="2"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="host-status-inner-container">
+                                    <div class="host-title-container">
+                                        <div class="host-title collapsed" data-bs-toggle="collapse" href="#main-host-collapse2" role="button" aria-expanded="false" aria-controls="main-host-collapse2" type="button">
+                                            <div class="host-title-text h5 mb-0">Main Server</div>
+                                            <div class="host-current-status ms-auto">Online</div>
+                                            <div class="host-title-extend-img">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down host-title-arrow-icon" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke="currentColor" stroke-width="2"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="collapse" id="main-host-collapse"></div>
                     </div>
                 </div>
 
