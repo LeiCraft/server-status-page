@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+            transition: background-color 0.3s ease; /* Smooth transition for dark mode */
+        }
+
+        body.dark-mode {
+            background-color: #333;
+        }
+
+        #service-container {
+            max-width: 600px;
+            overflow-y: scroll;
+        }
+
+        .service-box {
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .service-box:hover {
+            background-color: #eee;
+        }
+
+        .service-name {
+            font-weight: bold;
+            float: left;
+        }
+
+        .service-status {
+            float: right;
+        }
+
+        .expandable-content {
+            display: none;
+        }
+
+        #chart-container {
+            margin-top: 10px;
+        }
+
+        #chart-svg {
+            width: 100%; /* Full width of the container */
+        }
+    </style>
+</head>
+<body>
+    <div id="service-container">
+        <div class="service-box" onclick="toggleContent('service1')">
+            <div class="service-name">Service 1</div>
+            <div class="service-status">Operational</div>
+            <div class="expandable-content" id="service1">
+                <div id="chart-container">
+                    <svg id="chart-svg1" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+                <div>
+                    <label for="timeRange1">Select Time Range: </label>
+                    <select id="timeRange1" onchange="updateChart('chart-svg1', this.value)">
+                        <option value="24">Last 24 hours</option>
+                        <option value="7">Last 7 days</option>
+                        <option value="30">Last 30 days</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-box" onclick="toggleContent('service2')">
+            <div class="service-name">Service 2</div>
+            <div class="service-status">Maintenance</div>
+            <div class="expandable-content" id="service2">
+                <div id="chart-container">
+                    <svg id="chart-svg2" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+                <div>
+                    <label for="timeRange2">Select Time Range: </label>
+                    <select id="timeRange2" onchange="updateChart('chart-svg2', this.value)">
+                        <option value="24">Last 24 hours</option>
+                        <option value="7">Last 7 days</option>
+                        <option value="30">Last 30 days</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- Add more service boxes as needed -->
+
+    </div>
+
+    <script>
+        // Dummy data for demonstration purposes
+        const service1Data = [20, 15, 25, 18, 22, 30, 28, 24, 32, 28, 30, 35, 28, 22, 26, 30, 25, 20, 18, 15, 22, 28, 32, 35, 30, 26, 22, 18, 15, 20];
+        const service2Data = [10, 18, 25, 30, 28, 24, 20, 15, 22, 28, 32, 35, 30, 26, 22, 18, 15, 22, 30, 28, 24, 32, 28, 30, 35, 28, 22, 26, 30, 25];
+
+        function toggleContent(serviceId) {
+            const content = document.getElementById(serviceId);
+            content.style.display = content.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function updateChart(chartId, timeRange) {
+            const svg = document.getElementById(chartId);
+            const boxWidth = 20; // Fixed box width
+            const spacing = 5; // Fixed spacing between boxes
+            const data = chartId === 'chart-svg1' ? service1Data : service2Data;
+
+            // Calculate the total width of the SVG
+            const totalWidth = data.length * (boxWidth + spacing) - spacing;
+
+            // Set the viewBox to allow dynamic resizing
+            svg.setAttribute('viewBox', `0 0 ${totalWidth} 100`);
+
+            data.forEach((status, index) => {
+                const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+                rect.setAttribute('x', index * (boxWidth + spacing));
+                rect.setAttribute('y', 0);
+                rect.setAttribute('width', boxWidth);
+                rect.setAttribute('height', 100);
+                rect.setAttribute('fill', getStatusColor(status));
+                rect.setAttribute('rx', 8);
+                rect.setAttribute('ry', 8);
+
+                svg.appendChild(rect);
+            });
+        }
+
+        function getStatusColor(status) {
+            if (status > 30) {
+                return 'rgba(255, 0, 0, 0.8)';
+            } else if (status > 20) {
+                return 'rgba(255, 165, 0, 0.8)';
+            } else {
+                return 'rgba(0, 128, 0, 0.8)';
+            }
+        }
+    </script>
+</body>
+</html>

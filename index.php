@@ -7,7 +7,9 @@
 
     <main>
         <div class="container">
-
+            <div class="total-status">
+                Alle Systeme Online
+            </div>
         </div>
     </main>
 
