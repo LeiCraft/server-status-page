@@ -99,7 +99,7 @@
             border: 1px white solid !important;
         }
         .service-status-inner-container {
-            margin: 15px 0 15px 15px;
+            margin: 15px 5px 15px 15px;
         }
     </style>
 
