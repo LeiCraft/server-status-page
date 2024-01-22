@@ -34,7 +34,7 @@
             padding: 12px 20px;
         }
         .host-status-component {
-            border-top: 1px #333333, solid;
+            border-top: 1px #333333 solid;
             background-color: #1a1b2e;
         }
         .host-current-status {
