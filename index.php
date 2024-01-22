@@ -13,10 +13,10 @@
 
             <div class="total-status text-center h4 mb-5 code-green-bg">Alle Systeme Online</div>
 
-            <div class="host-status-section mt-5">
+            <div class="host-status-section mt-5 d-flex flex-column">
 
-                <div class="main-host">
-                    <div class></div>
+                <div class="main-host host-status-component">
+                    <div class=""></div>
                 </div>
 
             </div>
@@ -29,6 +29,9 @@
     <style>
         .total-status {
             padding: 12px 20px;
+        }
+        .host-status-component {
+            border-top: 1px rgb(224, 224, 224), solid;
         }
     </style>
 
