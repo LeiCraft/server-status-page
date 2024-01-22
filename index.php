@@ -29,7 +29,7 @@
                             </div>
                             <div class="collapse" id="main-host-collapse">
 
-                                <div id="chart-container mt-4">
+                                <div id="chart-container" class="mt-4">
                                     <svg id="chart-svg" xmlns="http://www.w3.org/2000/svg"></svg>
                                 </div>
 
