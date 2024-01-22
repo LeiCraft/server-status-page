@@ -32,7 +32,7 @@
                                     <div class="service-status-inner-container">
                                         <div class="host-title-container">
                                             <div class="host-title collapsed" data-bs-toggle="collapse" href="#main-host-collapse2" role="button" aria-expanded="false" aria-controls="main-host-collapse2" type="button">
-                                                <div class="host-title-text h6 mb-0">Main Server</div>
+                                                <div class="host-title-text h5 mb-0">Main Server</div>
                                                 <div class="host-current-status ms-auto">Online</div>
                                                 <div class="host-title-extend-img">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down host-title-arrow-icon" viewBox="0 0 16 16">
