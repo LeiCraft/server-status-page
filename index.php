@@ -68,7 +68,7 @@
             border: 1px white solid !important;
         }
         .host-status-inner-container {
-            margin: 10px 15px;
+            margin: 15px;
         }
         .host-title {
             display: flex;
@@ -87,7 +87,7 @@
             transform: none;
         }
         .service-status-inner-container {
-            margin: 10px 0 15px 10px;
+            margin: 15px 0 15px 15px;
         }
     </style>
 
