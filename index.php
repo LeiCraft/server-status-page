@@ -78,8 +78,6 @@
         .host-title-extend-img {
             display: flex;
             align-items: center
-        }
-        .host-title-text {
             padding-left: 10px;
         }
         .host-title-arrow-icon {
