@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                             <div class="collapse" id="main-host-collapse">
-                                <div class="service-status-section d-flex flex-column mt-2">
+                                <div class="service-status-section d-flex flex-column mt-4">
 
                                     <div class="service-status-container">
                                         <div class="service-status-inner-container">
