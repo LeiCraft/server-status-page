@@ -28,7 +28,12 @@
                                 </div>
                             </div>
                             <div class="collapse" id="main-host-collapse">
-                                <div class="service-status-section d-flex flex-column mt-4">
+
+                                <div id="chart-container mt-4">
+                                    <svg id="chart-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+                                </div>
+
+                                <div class="service-status-section d-flex flex-column mt-2">
 
                                     <div class="service-status-container">
                                         <div class="service-status-inner-container">
@@ -101,9 +106,55 @@
         .service-status-inner-container {
             margin: 15px 5px 15px 15px;
         }
+
+        #chart-container {
+            max-width: 600px;
+            overflow-y: scroll;
+        }
+
+        #chart-svg {
+            /* height: 50px; Adjust the height of the SVG bar */
+            width: 100%; /* Full width of the container */
+        }
+
     </style>
 
     <script>
+        // Dummy data for demonstration purposes
+        const serverStatusData = [20, 15, 25, 18, 22, 30, 28, 24, 32, 28, 30, 35, 28, 22, 26, 30, 25, 20, 18, 15, 22, 28, 32, 35, 30, 26, 22, 18, 15, 20];
+
+        const svg = document.getElementById('chart-svg');
+        const boxWidth = 20; // Fixed box width
+        const spacing = 5; // Fixed spacing between boxes
+
+        // Calculate the total width of the SVG
+        const totalWidth = serverStatusData.length * (boxWidth + spacing) - spacing;
+
+        // Set the viewBox to allow dynamic resizing
+        svg.setAttribute('viewBox', `0 0 ${totalWidth} 100`);
+
+        serverStatusData.forEach((status, index) => {
+            const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+            rect.setAttribute('x', index * (boxWidth + spacing));
+            rect.setAttribute('y', 0);
+            rect.setAttribute('width', boxWidth);
+            rect.setAttribute('height', 100);
+            rect.setAttribute('fill', getStatusColor(status));
+            rect.setAttribute('rx', 8);
+            rect.setAttribute('ry', 8);
+
+            svg.appendChild(rect);
+        });
+
+        function getStatusColor(status) {
+            if (status > 30) {
+                return 'rgba(255, 0, 0, 0.8)';
+            } else if (status > 20) {
+                return 'rgba(255, 165, 0, 0.8)';
+            } else {
+                return 'rgba(0, 128, 0, 0.8)';
+            }
+        }
 
     </script>
 
