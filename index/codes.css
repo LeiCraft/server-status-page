@@ -4,9 +4,9 @@
     --code-red: rgb(220, 53, 69);
     --no-code: rgb(179, 186, 197);
 }
-.code-green-bg { background-color: var(--code-green); }
-.code-green-font { color: var(--code-green); }
-.code-yellow-bg { background-color: var(--code-yellow); }
-.code-yellow-font { color: var(--code-yellow); }
-.code-red-bg { background-color: var(--code-red); }
-.code-red-font { color: var(--code-red); }
+.code-green-bg { background-color: var(--code-green) !important; }
+.code-green-font { color: var(--code-green) !important; }
+.code-yellow-bg { background-color: var(--code-yellow) !important; }
+.code-yellow-font { color: var(--code-yellow) !important; }
+.code-red-bg { background-color: var(--code-red) !important; }
+.code-red-font { color: var(--code-red) !important; }

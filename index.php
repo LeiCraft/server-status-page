@@ -11,7 +11,7 @@
     <main>
         <div class="container">
 
-            <div class="total-status text-center h4 mb-5">Alle Systeme Online</div>
+            <div class="total-status text-center h4 mb-5 code-green-bg">Alle Systeme Online</div>
 
             <div class="host-status-section mt-5">
 
