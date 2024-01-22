@@ -40,7 +40,7 @@
             background-color: #1a1b2e;
         }
         .host-status-component:first-child {
-            border-top: 1px white solid;
+            border: 1px white solid;
         }
         .host-current-status {
             float: right;
