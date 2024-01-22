@@ -8,7 +8,7 @@
 
     <header id="header"><?php include $_SERVER['DOCUMENT_ROOT'] . "/util/defaults/header.php"; ?></header>
 
-    <main>
+    <main class="mb-auto">
         <div class="container">
 
             <div class="total-status text-center h4 mb-5 code-green-bg">Alle Systeme Online</div>
