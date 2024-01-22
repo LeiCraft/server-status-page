@@ -22,6 +22,20 @@
                     </div>
                 </div>
 
+                <div class="main-host host-status-component">
+                    <div class="host-name-component">
+                        <span class="host-name">Main Server</span>
+                        <span class="host-current-status">Online</span>
+                    </div>
+                </div>
+
+                <div class="main-host host-status-component">
+                    <div class="host-name-component">
+                        <span class="host-name">Main Server</span>
+                        <span class="host-current-status">Online</span>
+                    </div>
+                </div>
+
             </div>
 
         </div>
