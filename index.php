@@ -16,6 +16,8 @@
     <style>
         .total-status {
             padding: 12px 20px;
+            color: white;
+            background-color: #198754;
         }
     </style>
 
