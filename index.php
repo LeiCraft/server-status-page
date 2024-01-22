@@ -86,8 +86,8 @@
 
     <script>
 
-        document.getElementsByClassName("main-host")[0].querySelector(".host-title-extend-img").addEventListener("onclick", function (event) {
-        console.log(1);
+        document.getElementsByClassName("main-host")[0].querySelector(".host-title-extend-img").addEventListener("click", function (event) {
+            console.log(1);
         });
 
     </script>
