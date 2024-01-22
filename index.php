@@ -16,7 +16,10 @@
             <div class="host-status-section mt-5 d-flex flex-column">
 
                 <div class="main-host host-status-component">
-                    <div class=""></div>
+                    <div class="host-name-component">
+                        <span class="host-name">Main Server</span>
+                        <span class="host-current-status">Online</span>
+                    </div>
                 </div>
 
             </div>
@@ -31,7 +34,10 @@
             padding: 12px 20px;
         }
         .host-status-component {
-            border-top: 1px rgb(224, 224, 224), solid;
+            border-top: 1px #E0E0E0, solid;
+        }
+        .host-current-status {
+            float: right;
         }
     </style>
 
