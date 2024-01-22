@@ -27,8 +27,8 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="collapse mt-5" id="main-host-collapse">
-                                <div class="service-status-section d-flex flex-column">
+                            <div class="collapse" id="main-host-collapse">
+                                <div class="service-status-section d-flex flex-column mt-2">
                                     <div class="service-status-inner-container">
                                         <div class="host-title-container">
                                             <div class="host-title collapsed" data-bs-toggle="collapse" href="#main-host-collapse2" role="button" aria-expanded="false" aria-controls="main-host-collapse2" type="button">
