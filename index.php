@@ -7,9 +7,9 @@
 
     <main>
         <div class="container">
-            <div class="total-status text-center h4 mb-5">Alle Systeme Online</div>
-
-
+            <div class="mb-5">
+                <div class="total-status text-center h4 mb-5">Alle Systeme Online</div>
+            </div>
         </div>
     </main>
 
