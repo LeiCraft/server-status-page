@@ -7,7 +7,7 @@
 
     <main>
         <div class="container">
-            <div class="total-status text-center">Alle Systeme Online</div>
+            <div class="total-status text-center h2">Alle Systeme Online</div>
         </div>
     </main>
 
