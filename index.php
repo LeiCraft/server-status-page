@@ -77,7 +77,7 @@
         }
         .host-title-extend-img {
             display: flex;
-            align-items: center
+            align-items: center;
             padding-left: 10px;
         }
         .host-title-arrow-icon {
