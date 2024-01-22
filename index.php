@@ -15,24 +15,21 @@
 
             <div class="host-status-section mt-5 d-flex flex-column">
 
-                <div class="main-host host-status-component">
-                    <div class="host-name-component">
-                        <span class="host-name">Main Server</span>
-                        <span class="host-current-status">Online</span>
+                <div class="main-host host-status-container">
+                    <div class="host-status-inner-">
+                        <div class="host-name-container">
+                            <span class="host-name">Main Server</span>
+                            <span class="host-current-status">Online</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="main-host host-status-component">
-                    <div class="host-name-component">
-                        <span class="host-name">Main Server</span>
-                        <span class="host-current-status">Online</span>
-                    </div>
-                </div>
-
-                <div class="main-host host-status-component">
-                    <div class="host-name-component">
-                        <span class="host-name">Main Server</span>
-                        <span class="host-current-status">Online</span>
+                <div class="main-host host-status-container">
+                    <div class="host-status-inner-container">
+                        <div class="host-name-container">
+                            <span class="host-name">Main Server</span>
+                            <span class="host-current-status">Online</span>
+                        </div>
                     </div>
                 </div>
 
@@ -47,13 +44,16 @@
         .total-status {
             padding: 12px 20px;
         }
-        .host-status-component {
+        .host-status-container {
             border: 1px white solid;
             border-top: none !important;
             background-color: #1a1b2e;
         }
-        .host-status-component:first-child {
+        .host-status-container:first-child {
             border: 1px white solid !important;
+        }
+        .host-status-inner-container {
+            margin: 10px 15px;
         }
         .host-current-status {
             float: right;
