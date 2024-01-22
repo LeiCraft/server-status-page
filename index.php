@@ -82,7 +82,7 @@
         .host-title-text {
             padding-left: 10px;
         }
-        .viewer-control-arrow-icon {
+        .host-title-arrow-icon {
             transition: transform 0.3s;
             transform: rotate(-180deg);
         }
