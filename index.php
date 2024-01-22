@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                             <div class="collapse mt-5" id="main-host-collapse">
-                                <div class="host-status-inner-container">
+                                <div class="service-status-inner-container">
                                     <div class="host-title-container">
                                         <div class="host-title collapsed" data-bs-toggle="collapse" href="#main-host-collapse2" role="button" aria-expanded="false" aria-controls="main-host-collapse2" type="button">
                                             <div class="host-title-text h5 mb-0">Main Server</div>
@@ -83,6 +83,9 @@
         }
         .host-title.collapsed .host-title-arrow-icon {
             transform: none;
+        }
+        .service-status-inner-container {
+            margin: 10px 0 15px 10px;
         }
     </style>
 
