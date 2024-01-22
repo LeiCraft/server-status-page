@@ -28,8 +28,8 @@
                                 <div class="host-title-text">
                                     <span>Main Server</span>
                                 </div>
+                                <div class="host-current-status ms-auto">Online</div>
                             </div>
-                            <span class="host-current-status">Online</span>
                         </div>
                     </div>
                 </div>
@@ -47,8 +47,8 @@
                                 <div class="host-title-text">
                                     <span>Main Server</span>
                                 </div>
+                                <div class="host-current-status ms-auto">Online</div>
                             </div>
-                            <span class="host-current-status">Online</span>
                         </div>
                     </div>
                 </div>
@@ -84,8 +84,6 @@
             align-items: center
         }
         .host-title-text {
-            display: flex;
-            align-items: center
             padding-left: 10px;
         }
         .host-current-status {
