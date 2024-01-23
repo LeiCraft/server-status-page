@@ -18,7 +18,7 @@
                 <div class="main-host host-status-container">
                     <div class="host-status-inner-container">
                         <div class="host-title-container">
-                            <div class="host-title" id="main-host-collapse-button" data-bs-toggle="collapse" href="#main-host-collapse" role="button" aria-expanded="false" aria-controls="main-host-collapse" type="button">
+                            <div class="host-title" id="main-host-collapse-button" data-bs-toggle="collapse" href="#main-host-collapse" role="button" aria-expanded="true" aria-controls="main-host-collapse" type="button">
                                 <div class="host-title-text h5 mb-0">Main Server</div>
                                 <div class="host-current-status ms-auto">Online</div>
                                 <div class="host-title-extend-img">
