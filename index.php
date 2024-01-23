@@ -128,12 +128,12 @@
             let status = "";
             switch (randInt) {
                 case 0:
-                    status = "ok";
+                    status = "green";
                     break;
                 case 1:
                     status = "yellow";
                     break;
-                case 3:
+                case 2:
                     status = "red";
                     break;
             }
