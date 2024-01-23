@@ -112,7 +112,7 @@
         }
 
         #chart-svg {
-            height: 50px;
+            height: 34px;
             width: 100%; /* Full width of the container */
         }
 
