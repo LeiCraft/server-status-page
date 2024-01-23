@@ -1,38 +1,99 @@
-<!doctype html>
-<html lang="de">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link href="/index/codes.css" rel="stylesheet">
-</head>
-<body>
-
-    <header id="header"></header>
-
-    <main>
-        <div class="container">
-
-            <div class="total-status text-center h4 mb-5 code-green-bg">Alle Systeme Online</div>
-
-            <div class="host-status-section mt-5 d-flex flex-column">
-
-                <div class="main-host host-status-component">
-                    <div class=""></div>
-                </div>
-
-            </div>
-
-        </div>
-    </main>
-
-    <footer class="footer" id="footer"></footer>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Status</title>
     <style>
-        .total-status {
-            padding: 12px 20px;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f5f5f5;
         }
-        .host-status-component {
-            border-top: 1px rgb(224, 224, 224), solid;
+
+        #chart-container {
+            width: 100%;
+        }
+
+        #chart-svg {
+            width: 100%; /* Full width of the container */
+            height: 50px;
         }
     </style>
+</head>
+<body>
+    <div id="chart-container">
+        <svg id="chart-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
+    </div>
 
+    <script>
+        // Dummy data for demonstration purposes
+        let serverStatusData = [];
+
+        // Add 60 more values for a total of 90
+        for (let i = 0; i < 90; i++) {
+            serverStatusData.push(Math.floor(Math.random() * (35 - 15 + 1)) + 15);
+        }
+
+        const svg = document.getElementById('chart-svg');
+        const container = document.getElementById('chart-container');
+        let daysToShow = 30; // Default to last 30 days
+        const minContainerWidth = 400; // Set a minimum container width to trigger the update
+
+        // Calculate the total width of the SVG
+        function updateChart() {
+            const containerWidth = container.clientWidth;
+            const factor = 0.04; // Adjust this factor based on your preference
+            //const boxWidth = containerWidth / serverStatusData.length - factor;
+            const boxWidth = 3;
+
+            // Adjust the days to show based on container width
+            if (containerWidth < minContainerWidth) {
+                daysToShow = 30; // If below the minimum width, show last 30 days
+            } else if (containerWidth < minContainerWidth * 2) {
+                daysToShow = 60; // If below twice the minimum width, show last 60 days
+            } else {
+                daysToShow = 90; // Otherwise, show last 90 days
+            }
+
+            const totalWidth = daysToShow * (boxWidth + 2) - 2;
+            svg.setAttribute('viewBox', `0 0 ${totalWidth} 34`);
+            svg.innerHTML = ""; // Clear existing rectangles
+
+            serverStatusData.slice(-daysToShow).forEach((status, index) => {
+                const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+                rect.setAttribute('x', index * (boxWidth + 2));
+                rect.setAttribute('y', 0);
+                rect.setAttribute('width', boxWidth);
+                rect.setAttribute('height', 34);
+                rect.setAttribute('fill', getStatusColor(status));
+                //rect.setAttribute('rx', 8);
+                //rect.setAttribute('ry', 8);
+
+                svg.appendChild(rect);
+            });
+        }
+
+        function getStatusColor(status) {
+            if (status > 30) {
+                return 'rgba(255, 0, 0, 0.8)';
+            } else if (status > 20) {
+                return 'rgba(255, 165, 0, 0.8)';
+            } else {
+                return 'rgba(0, 128, 0, 0.8)';
+            }
+        }
+
+        // Example usage to update chart initially
+        updateChart();
+
+        // Resize event listener to update the chart on container width changes
+        window.addEventListener('resize', updateChart);
+    </script>
 </body>
 </html>
