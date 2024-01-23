@@ -146,6 +146,7 @@
         // Calculate the total width of the SVG
         function updateChart() {
             const containerWidth = svg.clientWidth;
+            console.log(containerWidth);
             const factor = 0.04; // Adjust this factor based on your preference
             //const boxWidth = containerWidth / serverStatusData.length - factor;
             const boxWidth = 3;
