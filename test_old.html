@@ -17,12 +17,14 @@
         }
 
         #chart-container {
-            max-width: 100%;
+            width: 100%;
             overflow-x: auto; /* Enable horizontal scrolling if needed */
+            height: 200px; /* Set a fixed height for the chart */
         }
 
         #chart-svg {
             width: 100%; /* Full width of the container */
+            height: 100%; /* Full height of the container */
         }
     </style>
 </head>
@@ -38,7 +40,8 @@
         const svg = document.getElementById('chart-svg');
         const container = document.getElementById('chart-container');
         let daysToShow = 30; // Default to last 30 days
-        const boxWidth = 20; // Fixed box width
+        const containerWidth = container.clientWidth; // Get the available width
+        const boxWidth = calculateBoxWidth(); // Calculate box width based on available width
         const spacing = 5; // Fixed spacing between boxes
 
         // Calculate the total width of the SVG
@@ -70,6 +73,12 @@
             } else {
                 return 'rgba(0, 128, 0, 0.8)';
             }
+        }
+
+        function calculateBoxWidth() {
+            // Adjust this factor based on your preference
+            const factor = 0.04; // You may need to experiment with this value
+            return containerWidth / serverStatusData.length - factor;
         }
 
         // Example usage to update chart for last 30, 60, or 90 days
