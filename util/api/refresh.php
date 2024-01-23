@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/config.php";
+$config = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/config.php";
 
 $headers = getallheaders();
 
