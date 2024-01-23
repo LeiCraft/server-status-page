@@ -119,7 +119,6 @@
     </style>
 
     <script>
-        window.onload = function() {
         
         let serverStatusData = [];
 
@@ -194,8 +193,11 @@
         // Resize event listener to update the chart on container width changes
         window.addEventListener('resize', updateChart);
 
-        updateChart();
-    }
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log(document.getElementById("svg-chart").clientWidth);
+            //updateChart();
+        });
+
     </script>
 
 </body>
