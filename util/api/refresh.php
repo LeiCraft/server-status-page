@@ -28,6 +28,7 @@ if (isset($headers['Authorization'])) {
         } else {
             http_response_code(400);
             echo json_encode(['status' => 'error', 'message' => 'Invalid Bearer Token']);
+            echo json_encode(['status' => 'error', 'message' => 'Invalid Bearer Token', 'token' => $token]);
             exit;
         }
     } else {
