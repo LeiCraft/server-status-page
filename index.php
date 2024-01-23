@@ -190,11 +190,10 @@
             }
         }
 
-        // Example usage to update chart initially
-        updateChart();
-
         // Resize event listener to update the chart on container width changes
         window.addEventListener('resize', updateChart);
+
+        updateChart();
 
     </script>
 
