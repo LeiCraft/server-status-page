@@ -118,7 +118,8 @@
 
     </style>
 
-    <script>        window.addEventListener('DOMContentLoaded', function() {
+    <script>
+        window.onload = function() {
         
         let serverStatusData = [];
 
@@ -193,10 +194,8 @@
         // Resize event listener to update the chart on container width changes
         window.addEventListener('resize', updateChart);
 
-
-            updateChart();
-        });
-
+        updateChart();
+    }
     </script>
 
 </body>
