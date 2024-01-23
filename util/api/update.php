@@ -9,7 +9,7 @@ function runUpdate() {
         checkHost("host03.leicraftmc.de"),
         checkHost("host02.leicraftmc.de"),
         checkHost("host04.leicraftmc.de")
-    ]
+    ];
 
 }
 
