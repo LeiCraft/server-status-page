@@ -5,8 +5,3 @@ RewriteEngine On
 RewriteCond %{REQUEST_URI} ^/data(/.*|$)
 RewriteRule ^ - [F]
 
-<FilesMatch "^util/config">
-    Require all denied
-    Order Deny,Allow
-    Deny from all
-</FilesMatch>
