@@ -141,7 +141,7 @@
         }
 
         const svg = document.getElementById('chart-svg');
-        const container = document.getElementById('chart-container');
+        const container = document.getElementById('chart-svg');
         let daysToShow = 30; // Default to last 30 days
         const minContainerWidth = 400; // Set a minimum container width to trigger the update
 
