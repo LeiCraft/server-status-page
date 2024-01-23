@@ -108,7 +108,6 @@
         }
 
         #chart-container {
-            max-width: 600px;
             overflow-y: scroll;
         }
 

@@ -14,20 +14,14 @@
             justify-content: center;
             height: 100vh;
             background-color: #f5f5f5;
-            transition: background-color 0.3s ease; /* Smooth transition for dark mode */
-        }
-
-        body.dark-mode {
-            background-color: #333;
         }
 
         #chart-container {
-            max-width: 600px;
-            overflow-y: scroll;
+            max-width: 100%;
+            overflow-x: auto; /* Enable horizontal scrolling if needed */
         }
 
         #chart-svg {
-            /* height: 50px; Adjust the height of the SVG bar */
             width: 100%; /* Full width of the container */
         }
     </style>
@@ -42,27 +36,31 @@
         const serverStatusData = [20, 15, 25, 18, 22, 30, 28, 24, 32, 28, 30, 35, 28, 22, 26, 30, 25, 20, 18, 15, 22, 28, 32, 35, 30, 26, 22, 18, 15, 20];
 
         const svg = document.getElementById('chart-svg');
+        const container = document.getElementById('chart-container');
+        let daysToShow = 30; // Default to last 30 days
         const boxWidth = 20; // Fixed box width
         const spacing = 5; // Fixed spacing between boxes
 
         // Calculate the total width of the SVG
-        const totalWidth = serverStatusData.length * (boxWidth + spacing) - spacing;
+        function updateChart() {
+            const totalWidth = serverStatusData.length * (boxWidth + spacing) - spacing;
+            // Set the viewBox to allow dynamic resizing
+            svg.setAttribute('viewBox', `0 0 ${totalWidth} 100`);
+            svg.innerHTML = ""; // Clear existing rectangles
 
-        // Set the viewBox to allow dynamic resizing
-        svg.setAttribute('viewBox', `0 0 ${totalWidth} 100`);
+            serverStatusData.slice(-daysToShow).forEach((status, index) => {
+                const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+                rect.setAttribute('x', index * (boxWidth + spacing));
+                rect.setAttribute('y', 0);
+                rect.setAttribute('width', boxWidth);
+                rect.setAttribute('height', 100);
+                rect.setAttribute('fill', getStatusColor(status));
+                rect.setAttribute('rx', 8);
+                rect.setAttribute('ry', 8);
 
-        serverStatusData.forEach((status, index) => {
-            const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-            rect.setAttribute('x', index * (boxWidth + spacing));
-            rect.setAttribute('y', 0);
-            rect.setAttribute('width', boxWidth);
-            rect.setAttribute('height', 100);
-            rect.setAttribute('fill', getStatusColor(status));
-            rect.setAttribute('rx', 8);
-            rect.setAttribute('ry', 8);
-
-            svg.appendChild(rect);
-        });
+                svg.appendChild(rect);
+            });
+        }
 
         function getStatusColor(status) {
             if (status > 30) {
@@ -74,6 +72,19 @@
             }
         }
 
+        // Example usage to update chart for last 30, 60, or 90 days
+        updateChart();
+
+        // You can change the value of 'daysToShow' based on your requirements
+        // For example, if you want to show last 60 days:
+        // daysToShow = 60;
+        // updateChart();
+
+        // If you want to show last 90 days:
+        // daysToShow = 90;
+        // updateChart();
+
+        // This is a simplified example. You might want to add user controls to change 'daysToShow' dynamically.
     </script>
 </body>
 </html>
