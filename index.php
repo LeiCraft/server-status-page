@@ -197,9 +197,7 @@
             updateChart();
         });
 
-        //window.onload = function () {
-            updateChart();
-        //}
+        updateChart();
 
     </script>
 
