@@ -9,7 +9,12 @@ $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
 function runUpdate() {
 
-    return checkHost("leicraftmc.de");
+    return [
+        checkHost("leicraftmc.de"),
+        checkHost("host03.leicraftmc.de"),
+        checkHost("host02.leicraftmc.de"),
+        checkHost("host04.leicraftmc.de")
+    ]
 
 }
 
