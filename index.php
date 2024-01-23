@@ -151,7 +151,7 @@
             const boxWidth = 3;
 
             // Adjust the days to show based on container width
-            if (containerWidth < 500) {
+            if (containerWidth < 550) {
                 daysToShow = 30; // If below the minimum width, show last 30 days
             } else if (containerWidth < 750) {
                 daysToShow = 60; // If below twice the minimum width, show last 60 days
