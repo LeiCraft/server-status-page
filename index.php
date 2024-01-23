@@ -18,7 +18,7 @@
                 <div class="main-host host-status-container">
                     <div class="host-status-inner-container">
                         <div class="host-title-container">
-                            <div class="host-title collapsed" data-bs-toggle="collapse" href="#main-host-collapse" role="button" aria-expanded="false" aria-controls="main-host-collapse" type="button">
+                            <div class="host-title" id="main-host-collapse-button" data-bs-toggle="collapse" href="#main-host-collapse" role="button" aria-expanded="false" aria-controls="main-host-collapse" type="button">
                                 <div class="host-title-text h5 mb-0">Main Server</div>
                                 <div class="host-current-status ms-auto">Online</div>
                                 <div class="host-title-extend-img">
@@ -27,7 +27,7 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="collapse" id="main-host-collapse">
+                            <div class="" id="main-host-collapse">
 
                                 <div class="chart-container mt-4">
                                     <svg id="chart-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
@@ -193,7 +193,11 @@
         // Resize event listener to update the chart on container width changes
         window.addEventListener('resize', updateChart);
 
-        updateChart();
+        document.getElementById("main-host-collapse-button").addEventListener(function (event) {
+            if (svg.clientWidth === 0) {
+                updateChart();
+            }
+        });
 
     </script>
 
