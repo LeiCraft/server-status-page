@@ -141,21 +141,19 @@
         }
 
         const svg = document.getElementById('chart-svg');
-        const container = document.getElementById('chart-svg');
         let daysToShow = 30; // Default to last 30 days
-        const minContainerWidth = 400; // Set a minimum container width to trigger the update
 
         // Calculate the total width of the SVG
         function updateChart() {
-            const containerWidth = container.clientWidth;
+            const containerWidth = svg.clientWidth;
             const factor = 0.04; // Adjust this factor based on your preference
             //const boxWidth = containerWidth / serverStatusData.length - factor;
             const boxWidth = 3;
 
             // Adjust the days to show based on container width
-            if (containerWidth < minContainerWidth) {
+            if (containerWidth < 500) {
                 daysToShow = 30; // If below the minimum width, show last 30 days
-            } else if (containerWidth < minContainerWidth * 2) {
+            } else if (containerWidth < 750) {
                 daysToShow = 60; // If below twice the minimum width, show last 60 days
             } else {
                 daysToShow = 90; // Otherwise, show last 90 days
