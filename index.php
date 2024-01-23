@@ -27,7 +27,7 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="" id="main-host-collapse">
+                            <div class="collapse show" id="main-host-collapse">
 
                                 <div class="chart-container mt-4">
                                     <svg id="chart-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
