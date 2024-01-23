@@ -141,13 +141,11 @@
         }
 
         const svg = document.getElementById('chart-svg');
-        const svgContainer = svg.parentNode;
-        console.log(svgContainer.clientWidth)
         let daysToShow = 30; // Default to last 30 days
 
         // Calculate the total width of the SVG
         function updateChart() {
-            const containerWidth = svgContainer.clientWidth;
+            const containerWidth = svg.clientWidth;
             const factor = 0.04; // Adjust this factor based on your preference
             //const boxWidth = containerWidth / serverStatusData.length - factor;
             const boxWidth = 3;
@@ -195,7 +193,9 @@
         // Resize event listener to update the chart on container width changes
         window.addEventListener('resize', updateChart);
 
-        //updateChart();
+        window.addEventListener('load', function() {
+            updateChart();
+        });
 
     </script>
 
