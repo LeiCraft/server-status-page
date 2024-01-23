@@ -50,9 +50,17 @@
         // Calculate the total width of the SVG
         function updateChart() {
             const containerWidth = container.clientWidth;
-            console.log(containerWidth);
             const factor = 0.04; // Adjust this factor based on your preference
-            const boxWidth = containerWidth / daysToShow - factor;
+            const boxWidth = containerWidth / serverStatusData.length - factor;
+
+            // Adjust the days to show based on container width
+            if (containerWidth < minContainerWidth) {
+                daysToShow = 30; // If below the minimum width, show last 30 days
+            } else if (containerWidth < minContainerWidth * 2) {
+                daysToShow = 60; // If below twice the minimum width, show last 60 days
+            } else {
+                daysToShow = 90; // Otherwise, show last 90 days
+            }
 
             const totalWidth = daysToShow * (boxWidth + 5) - 5;
             svg.setAttribute('viewBox', `0 0 ${totalWidth} 100`);
