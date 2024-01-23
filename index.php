@@ -194,13 +194,31 @@
         window.addEventListener('resize', updateChart);
 
         window.addEventListener('DOMContentLoaded', function() {
-            while (svg.clientWidth == 0) {
-                setTimeout(() => {
-                    console.log(svg.clientWidth);
-                    updateChart();
-                }, 100);
+
+            function asyncWhileLoop(condition, action, interval) {
+                const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+                async function loop() {
+                    while (condition()) {
+                        await action();
+                        await delay(interval);
+                    }
+                }
+
+                return loop();
             }
-            console.log(svg.clientWidth);
+
+            asyncWhileLoop(
+                () => svg.clientWidth == 0,
+                async () => {
+                    updateChart();
+                    console.log(svg.clientWidth);
+                    // Simulate an asynchronous operation
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                },
+                2000
+            );
+
         });
 
     </script>
