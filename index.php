@@ -198,6 +198,7 @@
                 console.log(1);
                 updateChart();
             }
+            console.log(2);
         });
 
     </script>
