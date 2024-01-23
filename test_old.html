@@ -62,7 +62,7 @@
             }
 
             const totalWidth = daysToShow * (boxWidth + 2) - 2;
-            svg.setAttribute('viewBox', `0 0 ${totalWidth} 100`);
+            svg.setAttribute('viewBox', `0 0 ${totalWidth} 34`);
             svg.innerHTML = ""; // Clear existing rectangles
 
             serverStatusData.slice(-daysToShow).forEach((status, index) => {
