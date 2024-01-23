@@ -18,40 +18,48 @@
 
         #chart-container {
             width: 100%;
+            overflow-x: auto; /* Enable horizontal scrolling if needed */
+            height: 200px; /* Set a fixed height for the chart */
         }
 
         #chart-svg {
             width: 100%; /* Full width of the container */
-            height: 50px; /* Full height of the container */
+            height: 100%; /* Full height of the container */
         }
     </style>
 </head>
 <body>
     <div id="chart-container">
-        <svg id="chart-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
+        <svg id="chart-svg" xmlns="http://www.w3.org/2000/svg"></svg>
     </div>
 
     <script>
         // Dummy data for demonstration purposes
-        const serverStatusData = [20, 15, 25, 18, 22, 30, 28, 24, 32, 28, 30, 35, 28, 22, 26, 30, 25, 20, 18, 15, 22, 28, 32, 35, 30, 26, 22, 18, 15, 20];
+        let serverStatusData = [20, 15, 25, 18, 22, 30, 28, 24, 32, 28, 30, 35, 28, 22, 26, 30, 25, 20, 18, 15, 22, 28, 32, 35, 30, 26, 22, 18, 15, 20];
+
+        // Add 60 more values for a total of 90
+        for (let i = 0; i < 60; i++) {
+            serverStatusData.push(Math.floor(Math.random() * (35 - 15 + 1)) + 15);
+        }
 
         const svg = document.getElementById('chart-svg');
         const container = document.getElementById('chart-container');
         let daysToShow = 30; // Default to last 30 days
-        const containerWidth = container.clientWidth; // Get the available width
-        const boxWidth = calculateBoxWidth(); // Calculate box width based on available width
-        const spacing = 5; // Fixed spacing between boxes
+        const minContainerWidth = 400; // Set a minimum container width to trigger the update
 
         // Calculate the total width of the SVG
         function updateChart() {
-            const totalWidth = serverStatusData.length * (boxWidth + spacing) - spacing;
-            // Set the viewBox to allow dynamic resizing
+            const containerWidth = container.clientWidth;
+            const factor = 0.04; // Adjust this factor based on your preference
+            const boxWidth = containerWidth / daysToShow - factor;
+
+            const totalWidth = daysToShow * (boxWidth + 5) - 5;
             svg.setAttribute('viewBox', `0 0 ${totalWidth} 100`);
             svg.innerHTML = ""; // Clear existing rectangles
 
             serverStatusData.slice(-daysToShow).forEach((status, index) => {
                 const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-                rect.setAttribute('x', index * (boxWidth + spacing));
+                rect.setAttribute('x', index * (boxWidth + 5));
                 rect.setAttribute('y', 0);
                 rect.setAttribute('width', boxWidth);
                 rect.setAttribute('height', 100);
@@ -73,25 +81,11 @@
             }
         }
 
-        function calculateBoxWidth() {
-            // Adjust this factor based on your preference
-            const factor = 0.04; // You may need to experiment with this value
-            return containerWidth / serverStatusData.length - factor;
-        }
-
-        // Example usage to update chart for last 30, 60, or 90 days
+        // Example usage to update chart initially
         updateChart();
 
-        // You can change the value of 'daysToShow' based on your requirements
-        // For example, if you want to show last 60 days:
-        // daysToShow = 60;
-        // updateChart();
-
-        // If you want to show last 90 days:
-        // daysToShow = 90;
-        // updateChart();
-
-        // This is a simplified example. You might want to add user controls to change 'daysToShow' dynamically.
+        // Resize event listener to update the chart on container width changes
+        window.addEventListener('resize', updateChart);
     </script>
 </body>
 </html>
