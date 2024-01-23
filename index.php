@@ -195,7 +195,7 @@
         // Resize event listener to update the chart on container width changes
         window.addEventListener('resize', updateChart);
 
-        updateChart();
+        //updateChart();
 
     </script>
 
