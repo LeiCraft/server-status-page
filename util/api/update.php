@@ -38,13 +38,13 @@ function checkHost($fqdn) {
         }
 
         return [
-            "response_time" => $averageResponseTime;
-            "status_code" => $status;
+            "response_time" => $averageResponseTime,
+            "status_code" => $status
         ]
     } else {
         return [
-            "response_time" => 0;
-            "status_code" => "no_data";
+            "response_time" => 0,
+            "status_code" => "no_data",
         ]
     }
 
