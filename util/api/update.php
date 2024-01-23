@@ -12,8 +12,6 @@ function checkHost($fqdn) {
     
     $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$fqdn&node=de4.node.check-host.net");
 
-    return $initialResponse;
-
     if (isset($initialResponse['request_id'])) {
         // Make a second cURL request using the obtained request_id
         $checkResponse = makeCurlRequest('https://check-host.net/check-result/' . $initialResponse['request_id']);
@@ -54,10 +52,23 @@ function checkHost($fqdn) {
 
 
 function makeCurlRequest($url) {
+    $headers = array(
+        'Accept: application/json',
+    );
+
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
     $response = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        // Handle curl errors if needed
+        echo 'Curl error: ' . curl_error($ch);
+    }
+
     curl_close($ch);
+
     return json_decode($response, true);
 }
 
