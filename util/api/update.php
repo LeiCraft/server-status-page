@@ -21,8 +21,6 @@ function checkHost($fqdn) {
         // Make a second cURL request using the obtained request_id
         $checkResponse = makeCurlRequest('https://check-host.net/check-result/' . $initialResponse['request_id']);
 
-        return "hi";
-
         // Extract the response times and calculate the average
         $responseTimes = $checkResponse['de4.node.check-host.net'][0];
         $responseTimesInMs = array_map(function ($item) {
@@ -76,7 +74,8 @@ function makeCurlRequest($url) {
 
     curl_close($ch);
 
-    return json_decode($response, true);
+    //return json_decode($response, true);
+    return $response;
 }
 
 ?>
