@@ -49,7 +49,8 @@
         function updateChart() {
             const containerWidth = container.clientWidth;
             const factor = 0.04; // Adjust this factor based on your preference
-            const boxWidth = containerWidth / serverStatusData.length - factor;
+            //const boxWidth = containerWidth / serverStatusData.length - factor;
+            const boxWidth = 3;
 
             // Adjust the days to show based on container width
             if (containerWidth < minContainerWidth) {
@@ -60,16 +61,16 @@
                 daysToShow = 90; // Otherwise, show last 90 days
             }
 
-            const totalWidth = daysToShow * (boxWidth + 5) - 5;
+            const totalWidth = daysToShow * (boxWidth + 2) - 2;
             svg.setAttribute('viewBox', `0 0 ${totalWidth} 100`);
             svg.innerHTML = ""; // Clear existing rectangles
 
             serverStatusData.slice(-daysToShow).forEach((status, index) => {
                 const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-                rect.setAttribute('x', index * (boxWidth + 5));
+                rect.setAttribute('x', index * (boxWidth + 2));
                 rect.setAttribute('y', 0);
                 rect.setAttribute('width', boxWidth);
-                rect.setAttribute('height', 100);
+                rect.setAttribute('height', 3);
                 rect.setAttribute('fill', getStatusColor(status));
                 rect.setAttribute('rx', 8);
                 rect.setAttribute('ry', 8);
