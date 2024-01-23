@@ -1,5 +1,10 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
 function runUpdate() {
@@ -11,8 +16,6 @@ function runUpdate() {
 function checkHost($fqdn) {
     
     $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$fqdn&node=de4.node.check-host.net");
-
-    return $initialResponse;
 
     if (isset($initialResponse['request_id'])) {
         // Make a second cURL request using the obtained request_id
