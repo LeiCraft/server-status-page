@@ -44,7 +44,7 @@ function checkHost($fqdn) {
     } else {
         return [
             "response_time" => 0,
-            "status_code" => "no_data",
+            "status_code" => "no_data"
         ]
     }
 
