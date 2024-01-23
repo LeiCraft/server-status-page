@@ -19,7 +19,9 @@ function checkHost($fqdn) {
 
     if (isset($initialResponse['request_id'])) {
         // Make a second cURL request using the obtained request_id
-        $checkResponse = makeCurlRequest('https://check-host.net/check-result/' . $initialResponse['request_id']);
+        $checkResponse = makeCurlRequest2('https://check-host.net/check-result/' . $initialResponse['request_id']);
+
+        return $checkResponse;
 
         // Extract the response times and calculate the average
         $responseTimes = $checkResponse['de4.node.check-host.net'][0];
@@ -75,6 +77,27 @@ function makeCurlRequest($url) {
     curl_close($ch);
 
     return json_decode($response, true);
+}
+
+function makeCurlRequest2($url) {
+    $headers = array(
+        'Accept: application/json',
+    );
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+    $response = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        // Handle curl errors if needed
+        echo 'Curl error: ' . curl_error($ch);
+    }
+
+    curl_close($ch);
+
+    return $response;
 }
 
 ?>
