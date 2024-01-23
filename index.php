@@ -179,7 +179,7 @@
             });
         }
 
-        function getStatusColor(status_coce) {
+        function getStatusColor(status_code) {
             switch (status_code) {
                 case "green":
                     return "#198754";
