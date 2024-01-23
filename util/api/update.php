@@ -19,7 +19,7 @@ function checkHost($fqdn) {
 
     if (isset($initialResponse['request_id'])) {
 
-        sleep(5);
+        sleep(1);
         // Make a second cURL request using the obtained request_id
         $checkResponse = makeCurlRequest('https://check-host.net/check-result/' . $initialResponse['request_id']);
 
