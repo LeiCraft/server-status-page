@@ -119,41 +119,84 @@
     </style>
 
     <script>
-        // Dummy data for demonstration purposes
-        const serverStatusData = [20, 15, 25, 18, 22, 30, 28, 24, 32, 28, 30, 35, 28, 22, 26, 30, 25, 20, 18, 15, 22, 28, 32, 35, 30, 26, 22, 18, 15, 20];
+        
+        let serverStatusData = [];
+
+        // dummy data
+        for (let i = 0; i < 90; i++) {
+            let randInt = Math.floor(Math.random() * 3);
+            let status = "";
+            switch (randInt) {
+                case 0:
+                    status = "ok";
+                    break;
+                case 1:
+                    status = "yellow";
+                    break;
+                case 3:
+                    status = "red";
+                    break;
+            }
+            serverStatusData.push(status);
+        }
 
         const svg = document.getElementById('chart-svg');
-        const boxWidth = 20; // Fixed box width
-        const spacing = 5; // Fixed spacing between boxes
+        const container = document.getElementById('chart-container');
+        let daysToShow = 30; // Default to last 30 days
+        const minContainerWidth = 400; // Set a minimum container width to trigger the update
 
         // Calculate the total width of the SVG
-        const totalWidth = serverStatusData.length * (boxWidth + spacing) - spacing;
+        function updateChart() {
+            const containerWidth = container.clientWidth;
+            const factor = 0.04; // Adjust this factor based on your preference
+            //const boxWidth = containerWidth / serverStatusData.length - factor;
+            const boxWidth = 3;
 
-        // Set the viewBox to allow dynamic resizing
-        svg.setAttribute('viewBox', `0 0 ${totalWidth} 100`);
-
-        serverStatusData.forEach((status, index) => {
-            const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-            rect.setAttribute('x', index * (boxWidth + spacing));
-            rect.setAttribute('y', 0);
-            rect.setAttribute('width', boxWidth);
-            rect.setAttribute('height', 100);
-            rect.setAttribute('fill', getStatusColor(status));
-            rect.setAttribute('rx', 8);
-            rect.setAttribute('ry', 8);
-
-            svg.appendChild(rect);
-        });
-
-        function getStatusColor(status) {
-            if (status > 30) {
-                return 'rgba(255, 0, 0, 0.8)';
-            } else if (status > 20) {
-                return 'rgba(255, 165, 0, 0.8)';
+            // Adjust the days to show based on container width
+            if (containerWidth < minContainerWidth) {
+                daysToShow = 30; // If below the minimum width, show last 30 days
+            } else if (containerWidth < minContainerWidth * 2) {
+                daysToShow = 60; // If below twice the minimum width, show last 60 days
             } else {
-                return 'rgba(0, 128, 0, 0.8)';
+                daysToShow = 90; // Otherwise, show last 90 days
+            }
+
+            const totalWidth = daysToShow * (boxWidth + 2) - 2;
+            svg.setAttribute('viewBox', `0 0 ${totalWidth} 34`);
+            svg.innerHTML = ""; // Clear existing rectangles
+
+            serverStatusData.slice(-daysToShow).forEach((status, index) => {
+                const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+                rect.setAttribute('x', index * (boxWidth + 2));
+                rect.setAttribute('y', 0);
+                rect.setAttribute('width', boxWidth);
+                rect.setAttribute('height', 34);
+                rect.setAttribute('fill', getStatusColor(status));
+                //rect.setAttribute('rx', 8);
+                //rect.setAttribute('ry', 8);
+
+                svg.appendChild(rect);
+            });
+        }
+
+        function getStatusColor(status_coce) {
+            switch (status_code) {
+                case "green":
+                    return "#198754";
+                case "yellow":
+                    return '#FFC107';
+                case "red":
+                    return "#DC3545";
+                default:
+                    return "#B3BAC5";
             }
         }
+
+        // Example usage to update chart initially
+        updateChart();
+
+        // Resize event listener to update the chart on container width changes
+        window.addEventListener('resize', updateChart);
 
     </script>
 
