@@ -195,8 +195,10 @@
 
         window.addEventListener('DOMContentLoaded', function() {
             while (svg.clientWidth == 0) {
-                console.log(svg.clientWidth);
-                updateChart();
+                setTimeout(() => {
+                    console.log(svg.clientWidth);
+                    updateChart();
+                }, 100);
             }
             console.log(svg.clientWidth);
         });
