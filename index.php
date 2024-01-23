@@ -194,11 +194,7 @@
         window.addEventListener('resize', updateChart);
 
         document.getElementById("main-host-collapse-button").addEventListener("click", function (event) {
-            if (svg.clientWidth === 0) {
-                console.log(1);
-                updateChart();
-            }
-            console.log(2);
+            updateChart();
         });
 
     </script>
