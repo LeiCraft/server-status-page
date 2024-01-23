@@ -214,9 +214,9 @@
                     updateChart();
                     console.log(svg.clientWidth);
                     // Simulate an asynchronous operation
-                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    await new Promise(resolve => setTimeout(resolve, 100));
                 },
-                2000
+                100
             );
 
         });
