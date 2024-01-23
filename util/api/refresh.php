@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $config = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/config.php";
 
 $headers = getallheaders();
@@ -27,8 +31,7 @@ if (isset($headers['Authorization'])) {
 
         } else {
             http_response_code(400);
-            //echo json_encode(['status' => 'error', 'message' => 'Invalid Bearer Token']);
-            echo json_encode(['status' => 'error', 'message' => 'Invalid Bearer Token', 'token' => $token, 'config_token' => $config["token"]]);
+            echo json_encode(['status' => 'error', 'message' => 'Invalid Bearer Token']);
             exit;
         }
     } else {
