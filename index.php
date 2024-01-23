@@ -194,8 +194,11 @@
         window.addEventListener('resize', updateChart);
 
         window.addEventListener('DOMContentLoaded', function() {
-            console.log(document.getElementById("chart-svg").clientWidth);
-            //updateChart();
+            while (svg.clientWidth == 0) {
+                console.log(svg.clientWidth);
+                updateChart();
+            }
+            console.log(svg.clientWidth);
         });
 
     </script>
