@@ -4,46 +4,44 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Promise;
+use Spatie\Async\Pool;
 
 $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
 function runUpdate() {
-    global $results;
     $results = [];
 
-    $client = new Client();
+    // Create a new Pool
+    $pool = Pool::create();
 
-    // Make asynchronous requests
-    $promises = [
-        'leicraftmc.de' => $client->getAsync('https://check-host.net/check-ping?host=leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']]),
-        'host03.leicraftmc.de' => $client->getAsync('https://check-host.net/check-ping?host=host03.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']]),
-        'host02.leicraftmc.de' => $client->getAsync('https://check-host.net/check-ping?host=host02.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']]),
-        'host04.leicraftmc.de' => $client->getAsync('https://check-host.net/check-ping?host=host04.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']]),
-    ];
+    // Add tasks to the pool
+    $pool[] = checkHostAsync("leicraftmc.de");
+    $pool[] = checkHostAsync("host03.leicraftmc.de");
+    $pool[] = checkHostAsync("host02.leicraftmc.de");
+    $pool[] = checkHostAsync("host04.leicraftmc.de");
 
-    // Wait for all requests to complete
-    $responses = Promise\settle($promises)->wait();
-
-    // Access the results
-    foreach ($responses as $fqdn => $response) {
-        $results[$fqdn] = checkHost($fqdn, $response['value']);
-    }
-
-    print_r($results); // Output the results for testing
+    $pool->wait();
+    
+    return $results;
 }
 
-function checkHost($fqdn, $initialResponse) {
-    $initialResponseData = json_decode($initialResponse->getBody(), true);
+function checkHostAsync($fqdn) {
+    return async(function () use ($fqdn) {
+        global $results;
+        $results[$fqdn] = checkHost($fqdn);
+    });
+}
 
-    if (isset($initialResponseData['request_id'])) {
+function checkHost($fqdn) {
+    $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$fqdn&node=de4.node.check-host.net");
+
+    if (isset($initialResponse['request_id'])) {
         sleep(5);
 
         // Make a second cURL request using the obtained request_id
-        $checkResponse = makeCurlRequest('https://check-host.net/check-result/' . $initialResponseData['request_id']);
+        $checkResponse = makeCurlRequest('https://check-host.net/check-result/' . $initialResponse['request_id']);
 
         // Extract the response times and calculate the average
         $responseTimes = $checkResponse['de4.node.check-host.net'][0];
@@ -98,5 +96,3 @@ function makeCurlRequest($url) {
 
     return json_decode($response, true);
 }
-
-runUpdate();
