@@ -15,7 +15,7 @@ function runUpdate() {
     global $results;
     $results = [];
 
-    $client = \Symfony\Component\HttpClient\HttpClient::create();
+    $client = HttpClient::create();
 
     // Make asynchronous requests
     $promises = [
