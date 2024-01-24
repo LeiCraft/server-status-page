@@ -14,6 +14,8 @@ function runUpdate() {
     global $hosts;
     $results = [];
 
+    return [];
+
     // Create a new Pool
     $pool = Pool::create();
 
