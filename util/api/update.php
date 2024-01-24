@@ -31,7 +31,7 @@ function runUpdate() {
     }
 
     // Wait for all tasks to complete
-    await($pool)
+    await($pool);
 
     return $results;
 }
