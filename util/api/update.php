@@ -77,7 +77,7 @@ function runUpdate() {
 
     // Use a for loop to add tasks to the pool
     for ($i = 0; $i < count($hosts); $i++) {
-        $pool->add(new CheckHostTask($hosts[$i]))->then(function ($output) use ($results, $hosts, $i) {
+        $pool->add(new CheckHostTask() use ($hosts[$i]))->then(function ($output) use ($results, $hosts, $i) {
             // Handle success
             global $results;
             $results[] = $output;
