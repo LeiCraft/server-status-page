@@ -4,10 +4,10 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-use \Symfony\Component\HttpClient\HttpClient;
+use GuzzleHttp\Client;
+use GuzzleHttp\Promise;
 
 $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
@@ -15,30 +15,30 @@ function runUpdate() {
     global $results;
     $results = [];
 
-    $client = HttpClient::create();
+    $client = new Client();
 
     // Make asynchronous requests
     $promises = [
-        'leicraftmc.de' => $client->request('GET', 'https://check-host.net/check-ping?host=leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']])->toArray(),
-        'host03.leicraftmc.de' => $client->request('GET', 'https://check-host.net/check-ping?host=host03.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']])->toArray(),
-        'host02.leicraftmc.de' => $client->request('GET', 'https://check-host.net/check-ping?host=host02.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']])->toArray(),
-        'host04.leicraftmc.de' => $client->request('GET', 'https://check-host.net/check-ping?host=host04.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']])->toArray(),
+        'leicraftmc.de' => $client->getAsync('https://check-host.net/check-ping?host=leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']]),
+        'host03.leicraftmc.de' => $client->getAsync('https://check-host.net/check-ping?host=host03.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']]),
+        'host02.leicraftmc.de' => $client->getAsync('https://check-host.net/check-ping?host=host02.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']]),
+        'host04.leicraftmc.de' => $client->getAsync('https://check-host.net/check-ping?host=host04.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']]),
     ];
 
     // Wait for all requests to complete
-    $responses = \Symfony\Component\HttpClient\Promise\all($promises)->wait();
+    $responses = Promise\settle($promises)->wait();
 
     // Access the results
     foreach ($responses as $fqdn => $response) {
-        $results[$fqdn] = checkHost($fqdn, $response);
+        $results[$fqdn] = checkHost($fqdn, $response['value']);
     }
 
     print_r($results); // Output the results for testing
 }
 
 function checkHost($fqdn, $initialResponse) {
-    $initialResponseData = $initialResponse['response']->toArray();
-    
+    $initialResponseData = json_decode($initialResponse->getBody(), true);
+
     if (isset($initialResponseData['request_id'])) {
         sleep(5);
 
