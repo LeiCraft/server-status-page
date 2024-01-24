@@ -23,7 +23,7 @@ function runUpdate() {
     for ($i = 0; $i < count($hosts); $i++) {
         $pool[] = async(function () use ($hosts, $i) {
             return checkHost($hosts[$i]);
-        })->then(function ($output) use ($results, $hosts, $i) {
+        })->then(function ($output) use (&$results, $hosts, $i) {
             // Handle success
             global $results;
             $results[] = $output;
