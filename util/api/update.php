@@ -16,22 +16,22 @@ function runUpdate() {
     // Create a new Pool
     $pool = Pool::create();
 
-    // Add tasks to the pool
-    $pool[] = checkHostAsync("leicraftmc.de");
-    $pool[] = checkHostAsync("host03.leicraftmc.de");
-    $pool[] = checkHostAsync("host02.leicraftmc.de");
-    $pool[] = checkHostAsync("host04.leicraftmc.de");
+    $hosts = ["leicraftmc.de", "host03.leicraftmc.de", "host02.leicraftmc.de", "host04.leicraftmc.de"];
 
+    // Use a for loop to add tasks to the pool
+    for ($i = 0; $i < count($hosts); $i++) {
+        $pool->add(function () use ($hosts, $i) {
+            return checkHostAsync($hosts[$i]);
+        })->then(function ($output) use ($results, $hosts, $i) {
+            // Handle success
+            $results[$hosts[$i]] = $output;
+        });
+    }
+
+    // Wait for all tasks to complete
     $pool->wait();
-    
-    return $results;
-}
 
-function checkHostAsync($fqdn) {
-    return async(function () use ($fqdn) {
-        global $results;
-        $results[$fqdn] = checkHost($fqdn);
-    });
+    return $results;
 }
 
 function checkHost($fqdn) {
