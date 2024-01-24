@@ -17,12 +17,32 @@ function runUpdate() {
     // Create a new Pool
     $pool = Pool::create();
 
-    $hosts = ["leicraftmc.de"];
+    $hosts = ["leicraftmc.de", "host03.leicraftmc.de", "host02.leicraftmc.de", "host04.leicraftmc.de"];
 
-    // Use a for loop to add tasks to the pool
+    // Use a for loop to add tasks to the pool for initial check
     for ($i = 0; $i < count($hosts); $i++) {
         $pool[] = async(function () use ($hosts, $i) {
-            return checkHost($hosts[$i]);
+            $fqdn = $hosts[$i];
+            $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$fqdn&node=de4.node.check-host.net");
+            return $initialResponse;
+        })->then(function ($output) use ($results, &$hosts, $i) {
+            $hosts[$i]["initialResponse"] = $output;
+        });
+    }
+
+    // Wait for all tasks in the initial check pool to complete
+    await($pool);
+
+    // Sleep for 5 seconds globally
+    sleep(5);
+
+    // Create a new Pool for the second check
+    $secondPool = Pool::create();
+
+    // Use a for loop to add tasks to the second pool for the second check
+    for ($i = 0; $i < count($hosts); $i++) {
+        $secondPool[] = async(function () use ($hosts, $i) {
+            return runSecondCheck($hosts[$i]['initialResponse']);
         })->then(function ($output) use ($results, $hosts, $i) {
             // Handle success
             global $results;
@@ -30,18 +50,14 @@ function runUpdate() {
         });
     }
 
-    // Wait for all tasks to complete
-    await($pool);
+    // Wait for all tasks in the second check pool to complete
+    await($secondPool);
 
     return $results;
 }
 
-function checkHost($fqdn) {
-    $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$fqdn&node=de4.node.check-host.net");
-
+function runSecondCheck($initialResponse) {
     if (isset($initialResponse['request_id'])) {
-        sleep(5);
-
         // Make a second cURL request using the obtained request_id
         $checkResponse = makeCurlRequest('https://check-host.net/check-result/' . $initialResponse['request_id']);
 
@@ -98,3 +114,4 @@ function makeCurlRequest($url) {
 
     return json_decode($response, true);
 }
+?>
