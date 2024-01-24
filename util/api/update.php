@@ -19,10 +19,10 @@ function runUpdate() {
 
     // Make asynchronous requests
     $promises = [
-        'leicraftmc.de' => $client->requestAsync('GET', 'https://check-host.net/check-ping?host=leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']])->toArray(),
-        'host03.leicraftmc.de' => $client->requestAsync('GET', 'https://check-host.net/check-ping?host=host03.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']])->toArray(),
-        'host02.leicraftmc.de' => $client->requestAsync('GET', 'https://check-host.net/check-ping?host=host02.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']])->toArray(),
-        'host04.leicraftmc.de' => $client->requestAsync('GET', 'https://check-host.net/check-ping?host=host04.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']])->toArray(),
+        'leicraftmc.de' => $client->request('GET', 'https://check-host.net/check-ping?host=leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']])->toArray(),
+        'host03.leicraftmc.de' => $client->request('GET', 'https://check-host.net/check-ping?host=host03.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']])->toArray(),
+        'host02.leicraftmc.de' => $client->request('GET', 'https://check-host.net/check-ping?host=host02.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']])->toArray(),
+        'host04.leicraftmc.de' => $client->request('GET', 'https://check-host.net/check-ping?host=host04.leicraftmc.de&node=de4.node.check-host.net', ['headers' => ['Accept' => 'application/json']])->toArray(),
     ];
 
     // Wait for all requests to complete
