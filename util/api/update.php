@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-use Symfony\Component\HttpClient\HttpClient;
+use \Symfony\Component\HttpClient\HttpClient;
 
 $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
@@ -15,7 +15,7 @@ function runUpdate() {
     global $results;
     $results = [];
 
-    $client = HttpClient::create();
+    $client = \Symfony\Component\HttpClient\HttpClient::create();
 
     // Make asynchronous requests
     $promises = [
@@ -26,7 +26,7 @@ function runUpdate() {
     ];
 
     // Wait for all requests to complete
-    $responses = Symfony\Component\HttpClient\Promise\all($promises)->wait();
+    $responses = \Symfony\Component\HttpClient\Promise\all($promises)->wait();
 
     // Access the results
     foreach ($responses as $fqdn => $response) {
