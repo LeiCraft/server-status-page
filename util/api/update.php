@@ -1,25 +1,43 @@
 <?php
 
+require $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
+
+use Spatie\Async\Pool;
+
 $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
 function runUpdate() {
+    $results = [];
 
-    return [
-        checkHost("leicraftmc.de"),
-        checkHost("host03.leicraftmc.de"),
-        checkHost("host02.leicraftmc.de"),
-        checkHost("host04.leicraftmc.de")
-    ];
+    // Create a new Pool
+    $pool = Pool::create();
 
+    // Add tasks to the pool
+    $pool[] = checkHostAsync("leicraftmc.de");
+    $pool[] = checkHostAsync("host03.leicraftmc.de");
+    $pool[] = checkHostAsync("host02.leicraftmc.de");
+    $pool[] = checkHostAsync("host04.leicraftmc.de");
+
+    // Wait for all tasks to complete
+    $pool->wait();
+
+    // Access the results
+    return $results;
+}
+
+function checkHostAsync($fqdn) {
+    return async(function () use ($fqdn) {
+        global $results;
+        $results[$fqdn] = checkHost($fqdn);
+    });
 }
 
 function checkHost($fqdn) {
-    
     $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$fqdn&node=de4.node.check-host.net");
 
     if (isset($initialResponse['request_id'])) {
-
         sleep(5);
+
         // Make a second cURL request using the obtained request_id
         $checkResponse = makeCurlRequest('https://check-host.net/check-result/' . $initialResponse['request_id']);
 
@@ -54,9 +72,7 @@ function checkHost($fqdn) {
             "status_code" => "no_data"
         ];
     }
-
 }
-
 
 function makeCurlRequest($url) {
     $headers = array(
@@ -78,5 +94,3 @@ function makeCurlRequest($url) {
 
     return json_decode($response, true);
 }
-
-?>
