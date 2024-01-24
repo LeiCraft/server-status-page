@@ -41,7 +41,7 @@ function checkHost($fqdn) {
     $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$fqdn&node=de4.node.check-host.net");
 
     if (isset($initialResponse['request_id'])) {
-        sleep(5);
+        usleep(5);
 
         // Make a second cURL request using the obtained request_id
         $checkResponse = makeCurlRequest('https://check-host.net/check-result/' . $initialResponse['request_id']);
