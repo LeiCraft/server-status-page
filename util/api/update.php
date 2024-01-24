@@ -24,7 +24,7 @@ function runUpdate() {
             return checkHost($hosts[$i]);
         })->then(function ($output) use ($results, $hosts, $i) {
             // Handle success
-            $results[$hosts[$i]] = $output;
+            $results[] = $output;
         });
     }
 
