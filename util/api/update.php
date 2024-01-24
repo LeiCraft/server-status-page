@@ -23,7 +23,7 @@ class CheckHostTask extends Task
         $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$host&node=de4.node.check-host.net");
 
         if (isset($initialResponse['request_id'])) {
-            //echo "1";
+            
             sleep(5);
     
             // Make a second cURL request using the obtained request_id
