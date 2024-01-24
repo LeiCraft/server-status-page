@@ -20,7 +20,7 @@ function runUpdate() {
     $hosts = ["leicraftmc.de" => [], "host03.leicraftmc.de" => [], "host02.leicraftmc.de" => [], "host04.leicraftmc.de" => []];
 
     // Use a for loop to add tasks to the pool for initial check
-    for ($hosts as $fqdn => &$host_data) {
+    foreach ($hosts as $fqdn => &$host_data) {
         $pool[] = async(function () use ($fqdn) {
             $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$fqdn&node=de4.node.check-host.net");
             return $initialResponse;
@@ -40,7 +40,7 @@ function runUpdate() {
     $secondPool = Pool::create();
 
     // Use a for loop to add tasks to the second pool for the second check
-    for ($hosts as $fqdn => &$host_data) {
+    foreach ($hosts as $fqdn => &$host_data) {
         $secondPool[] = async(function () use ($host_data) {
             return runSecondCheck($host_data['initialResponse']);
         })->then(function ($output) use ($hosts) {
