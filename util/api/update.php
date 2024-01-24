@@ -8,10 +8,9 @@ require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
 use Spatie\Async\Pool;
 
-//$hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
+$hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
 function runUpdate() {
-    ss
     global $hosts;
     $results = [];
     
