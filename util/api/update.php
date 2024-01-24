@@ -7,11 +7,12 @@ error_reporting(E_ALL);
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
 use Spatie\Async\Pool;
+use Spatie\Async\Task;
 
 $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
 function runUpdate() {
-    global $result;
+    global $results;
     $results = [];
 
     // Create a new Pool
@@ -25,7 +26,7 @@ function runUpdate() {
             return checkHost($hosts[$i]);
         })->then(function ($output) use ($results, $hosts, $i) {
             // Handle success
-            global $result;
+            global $results;
             $results[] = $output;
         });
     }
