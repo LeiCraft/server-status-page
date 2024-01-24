@@ -7,62 +7,6 @@ error_reporting(E_ALL);
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
 use Spatie\Async\Pool;
-use Spatie\Async\Task;
-
-class CheckHostTask extends Task
-{
-    private $host;
-
-    public function configure()
-    {
-        $this->host = $host;
-    }
-
-    public function run()
-    {
-        $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$host&node=de4.node.check-host.net");
-
-        if (isset($initialResponse['request_id'])) {
-            
-            sleep(5);
-    
-            // Make a second cURL request using the obtained request_id
-            $checkResponse = makeCurlRequest('https://check-host.net/check-result/' . $initialResponse['request_id']);
-    
-            // Extract the response times and calculate the average
-            $responseTimes = $checkResponse['de4.node.check-host.net'][0];
-            $responseTimesInMs = array_map(function ($item) {
-                return round($item[1] * 1000, 2); // Convert seconds to milliseconds
-            }, $responseTimes);
-    
-            $averageResponseTime = array_sum($responseTimesInMs) / count($responseTimesInMs);
-    
-            // Determine the status based on the conditions
-            if (count(array_filter($responseTimes, function ($item) {
-                return $item[0] !== 'OK';
-            })) === 0) {
-                $status = 'green';
-            } elseif (count(array_filter($responseTimes, function ($item) {
-                return $item[0] !== 'OK';
-            })) <= 2) {
-                $status = 'yellow';
-            } else {
-                $status = 'red';
-            }
-    
-            return [
-                "response_time" => $averageResponseTime,
-                "status_code" => $status
-            ];
-        } else {
-            return [
-                "response_time" => 0,
-                "status_code" => "no_data"
-            ];
-        }
-    }
-}
-
 
 $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
@@ -77,7 +21,48 @@ function runUpdate() {
 
     // Use a for loop to add tasks to the pool
     for ($i = 0; $i < count($hosts); $i++) {
-        $pool->add(new CheckHostTask() use ($hosts[$i]))->then(function ($output) use ($results, $hosts, $i) {
+        $pool->add(function () use ($hosts, $i) {
+            $fqdn = $hosts[$i];
+            $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$fqdn&node=de4.node.check-host.net");
+
+            if (isset($initialResponse['request_id'])) {
+                usleep(5);
+
+                // Make a second cURL request using the obtained request_id
+                $checkResponse = makeCurlRequest('https://check-host.net/check-result/' . $initialResponse['request_id']);
+
+                // Extract the response times and calculate the average
+                $responseTimes = $checkResponse['de4.node.check-host.net'][0];
+                $responseTimesInMs = array_map(function ($item) {
+                    return round($item[1] * 1000, 2); // Convert seconds to milliseconds
+                }, $responseTimes);
+
+                $averageResponseTime = array_sum($responseTimesInMs) / count($responseTimesInMs);
+
+                // Determine the status based on the conditions
+                if (count(array_filter($responseTimes, function ($item) {
+                    return $item[0] !== 'OK';
+                })) === 0) {
+                    $status = 'green';
+                } elseif (count(array_filter($responseTimes, function ($item) {
+                    return $item[0] !== 'OK';
+                })) <= 2) {
+                    $status = 'yellow';
+                } else {
+                    $status = 'red';
+                }
+
+                return [
+                    "response_time" => $averageResponseTime,
+                    "status_code" => $status
+                ];
+            } else {
+                return [
+                    "response_time" => 0,
+                    "status_code" => "no_data"
+                ];
+            }
+        })->then(function ($output) use ($results, $hosts, $i) {
             // Handle success
             global $results;
             $results[] = $output;
@@ -90,11 +75,11 @@ function runUpdate() {
     return $results;
 }
 
-/*function checkHost($fqdn) {
+function checkHost($fqdn) {
     $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$fqdn&node=de4.node.check-host.net");
 
     if (isset($initialResponse['request_id'])) {
-        sleep(5);
+        usleep(5);
 
         // Make a second cURL request using the obtained request_id
         $checkResponse = makeCurlRequest('https://check-host.net/check-result/' . $initialResponse['request_id']);
@@ -130,7 +115,7 @@ function runUpdate() {
             "status_code" => "no_data"
         ];
     }
-}*/
+}
 
 function makeCurlRequest($url) {
     $headers = array(
