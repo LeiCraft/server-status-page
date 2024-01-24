@@ -17,7 +17,7 @@ function runUpdate() {
     // Create a new Pool
     $pool = Pool::create();
 
-    $hosts = ["leicraftmc.de", "host03.leicraftmc.de", "host02.leicraftmc.de", "host04.leicraftmc.de"];
+    $hosts = ["leicraftmc.de" => [], "host03.leicraftmc.de" => [], "host02.leicraftmc.de" => [], "host04.leicraftmc.de" => []];
 
     // Use a for loop to add tasks to the pool for initial check
     for ($i = 0; $i < count($hosts); $i++) {
