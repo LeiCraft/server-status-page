@@ -21,9 +21,9 @@ if (isset($headers['Authorization'])) {
             //runUpdate();
 
             http_response_code(200);
-            //echo json_encode(['status' => 'success', 'message' => 'Bearer Token is valid']);
+            echo json_encode(['status' => 'success', 'message' => 'Bearer Token is valid']);
 
-            echo json_encode(runUpdate());
+            //echo json_encode(runUpdate());
 
         } else {
             http_response_code(400);
