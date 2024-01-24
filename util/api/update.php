@@ -11,6 +11,7 @@ use Spatie\Async\Pool;
 $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
 function runUpdate() {
+    global $results;
     $results = [];
 
     // Create a new Pool
