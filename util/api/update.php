@@ -11,7 +11,7 @@ use Spatie\Async\Pool;
 $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
 function runUpdate() {
-    global $results;
+    global $hosts;
     $results = [];
 
     // Create a new Pool
@@ -20,13 +20,12 @@ function runUpdate() {
     $hosts = ["leicraftmc.de" => [], "host03.leicraftmc.de" => [], "host02.leicraftmc.de" => [], "host04.leicraftmc.de" => []];
 
     // Use a for loop to add tasks to the pool for initial check
-    for ($i = 0; $i < count($hosts); $i++) {
-        $pool[] = async(function () use ($hosts, $i) {
-            $fqdn = $hosts[$i];
+    for ($hosts as $fqdn => &$hosts_data) {
+        $pool[] = async(function () use ($fqdn) {
             $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$fqdn&node=de4.node.check-host.net");
             return $initialResponse;
-        })->then(function ($output) use ($results, &$hosts, $i) {
-            $hosts[$i]["initialResponse"] = $output;
+        })->then(function ($output) use ($hosts) {
+            $hosts[$fqdn]["initialResponse"] = $output;
         });
     }
 
@@ -40,13 +39,12 @@ function runUpdate() {
     $secondPool = Pool::create();
 
     // Use a for loop to add tasks to the second pool for the second check
-    for ($i = 0; $i < count($hosts); $i++) {
-        $secondPool[] = async(function () use ($hosts, $i) {
-            return runSecondCheck($hosts[$i]['initialResponse']);
-        })->then(function ($output) use ($results, $hosts, $i) {
-            // Handle success
-            global $results;
-            $results[] = $output;
+    for ($hosts as $fqdn => &$hosts_data) {
+        $secondPool[] = async(function () use ($host_data) {
+            return runSecondCheck($host_data['initialResponse']);
+        })->then(function ($output) use ($hosts) {
+            global $hosts;
+            $hosts[$fqdn] = $output;
         });
     }
 
