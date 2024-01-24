@@ -51,7 +51,7 @@ function runUpdate() {
     // Wait for all tasks in the second check pool to complete
     await($secondPool);
 
-    return $results;
+    return $hosts;
 }
 
 function runSecondCheck($initialResponse) {
