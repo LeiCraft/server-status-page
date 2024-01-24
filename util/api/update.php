@@ -25,7 +25,7 @@ function runUpdate() {
             $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$fqdn&node=de4.node.check-host.net");
             return $initialResponse;
         })->then(function ($output) use ($hosts) {
-            $global $hosts;
+            global $hosts;
             $hosts[$fqdn]["initialResponse"] = $output;
         });
     }
