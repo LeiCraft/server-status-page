@@ -13,7 +13,7 @@ class CheckHostTask extends Task
 {
     private $host;
 
-    public function configure($host)
+    public function configure()
     {
         $this->host = $host;
     }
