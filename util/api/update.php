@@ -27,7 +27,7 @@ function runUpdate() {
         }))->then(function ($output) use (&$results, $hosts, $i) {
             // Handle success
             global $results;
-            $results[] = $output;
+            $results[$hosts[$i]] = $output;
         });
     }
 
