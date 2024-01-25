@@ -14,7 +14,7 @@ $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 function runUpdate() {
 
     fetchCurrentStaus();
-    return "success";
+    return $hosts;
 
 }
 
