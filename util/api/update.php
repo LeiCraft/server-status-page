@@ -12,9 +12,10 @@ $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
 
 function runUpdate() {
+    echo "test";
 
     fetchCurrentStaus();
-    return $hosts;
+    return "success";
 
 }
 
@@ -101,7 +102,7 @@ function getHostCheckResult($initialResponse) {
 
 function makeCurlRequest($url) {
 
-    //try {
+    try {
 
         $headers = array(
             'Accept: application/json',
@@ -122,9 +123,9 @@ function makeCurlRequest($url) {
 
         return json_decode($response, true);
 
-    /*} catch (Exception $e) {
+    } catch (Exception $e) {
         return null;
-    }*/
+    }
 
 }
 
