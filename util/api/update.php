@@ -128,6 +128,6 @@ function makeCurlRequest($url) {
 }
 
 
-function updateMySQL
+//function updateMySQL
 
 ?>
