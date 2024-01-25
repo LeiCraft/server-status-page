@@ -12,13 +12,10 @@ $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
 
 function runUpdate() {
-
     global $hosts;
 
-    echo "<pre>" . print_r($hosts) . "</pre>";
-
     fetchCurrentStaus();
-    return "success";
+    return $hosts;
 
 }
 
@@ -123,6 +120,8 @@ function makeCurlRequest($url) {
         }
 
         curl_close($ch);
+
+        echo $response;
 
         return json_decode($response, true);
 
