@@ -22,7 +22,7 @@
 
             <div class="host-status-section mt-5 d-flex flex-column">
 
-                <?php foreach ($hosts as $host) { ?>
+                <?php foreach($hosts as $host) { ?>
 
                     <div class="main-host host-status-container">
                         <div class="host-status-inner-container">
