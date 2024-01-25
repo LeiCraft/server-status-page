@@ -13,6 +13,8 @@ $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
 function runUpdate() {
 
+    global $hosts;
+
     echo "<pre>" . print_r($hosts) . "</pre>";
 
     fetchCurrentStaus();
