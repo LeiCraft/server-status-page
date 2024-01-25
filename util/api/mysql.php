@@ -92,7 +92,7 @@
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
     
-                $outages = []
+                $outages = [];
     
                 while ($row = mysqli_fetch_assoc($result)) {
                     $outages[] = $row;
