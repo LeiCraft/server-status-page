@@ -1,10 +1,5 @@
 <?php 
 
-
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
     $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/util/api/mysql.php";
 
