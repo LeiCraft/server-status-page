@@ -15,7 +15,7 @@ function runUpdate() {
     global $hosts;
 
     fetchCurrentStaus();
-    echo json_decode($hosts);
+    echo json_encode($hosts);
 
 }
 
