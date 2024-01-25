@@ -15,7 +15,7 @@ function runUpdate() {
     global $hosts;
 
     fetchCurrentStaus();
-    return $hosts;
+    echo json_decode($hosts);
 
 }
 
@@ -122,8 +122,6 @@ function makeCurlRequest($url) {
         }
 
         curl_close($ch);
-
-        echo $response;
 
         return json_decode($response, true);
 
