@@ -121,7 +121,7 @@ function makeCurlRequest($url) {
 
         return json_decode($response, true);
 
-    } catch () {
+    } catch (Exception $e) {
         return null;
     }
 
