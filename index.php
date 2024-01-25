@@ -1,6 +1,8 @@
 <?php 
 
     $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/util/api/mysql.php";
+
 
 ?>
 <!doctype html>
@@ -20,47 +22,51 @@
 
             <div class="host-status-section mt-5 d-flex flex-column">
 
-                <div class="main-host host-status-container">
-                    <div class="host-status-inner-container">
-                        <div class="host-title-container">
-                            <div class="host-title" id="main-host-collapse-button" data-bs-toggle="collapse" href="#main-host-collapse" role="button" aria-expanded="true" aria-controls="main-host-collapse" type="button">
-                                <div class="host-title-text h5 mb-0">Main Server</div>
-                                <div class="host-current-status ms-auto">Online</div>
-                                <div class="host-title-extend-img">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down host-title-arrow-icon" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke="currentColor" stroke-width="2"></path>
-                                    </svg>
+                <?php foreach ($hosts as $host) { ?>
+
+                    <div class="main-host host-status-container">
+                        <div class="host-status-inner-container">
+                            <div class="host-title-container">
+                                <div class="host-title" id="main-host-collapse-button" data-bs-toggle="collapse" href="#main-host-collapse" role="button" aria-expanded="true" aria-controls="main-host-collapse" type="button">
+                                    <div class="host-title-text h5 mb-0">Main Server</div>
+                                    <div class="host-current-status ms-auto">Online</div>
+                                    <div class="host-title-extend-img">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down host-title-arrow-icon" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke="currentColor" stroke-width="2"></path>
+                                        </svg>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="collapse show" id="main-host-collapse">
+                                <div class="collapse show" id="main-host-collapse">
 
-                                <div class="chart-container mt-4">
-                                    <svg id="chart-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
-                                </div>
+                                    <div class="chart-container mt-4">
+                                        <svg id="chart-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
+                                    </div>
 
-                                <div class="service-status-section d-flex flex-column mt-2">
+                                    <div class="service-status-section d-flex flex-column mt-2">
 
-                                    <div class="service-status-container">
-                                        <div class="service-status-inner-container">
-                                            <div class="host-title-container">
-                                                <div class="host-title collapsed" data-bs-toggle="collapse" href="#main-host-collapse2" role="button" aria-expanded="false" aria-controls="main-host-collapse2" type="button">
-                                                    <div class="host-title-text h5 mb-0">Main Server</div>
-                                                    <div class="host-current-status ms-auto">Online</div>
-                                                    <div class="host-title-extend-img">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down host-title-arrow-icon" viewBox="0 0 16 16">
-                                                            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke="currentColor" stroke-width="2"></path>
-                                                        </svg>
+                                        <div class="service-status-container">
+                                            <div class="service-status-inner-container">
+                                                <div class="host-title-container">
+                                                    <div class="host-title collapsed" data-bs-toggle="collapse" href="#main-host-collapse2" role="button" aria-expanded="false" aria-controls="main-host-collapse2" type="button">
+                                                        <div class="host-title-text h5 mb-0">Main Server</div>
+                                                        <div class="host-current-status ms-auto">Online</div>
+                                                        <div class="host-title-extend-img">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down host-title-arrow-icon" viewBox="0 0 16 16">
+                                                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke="currentColor" stroke-width="2"></path>
+                                                            </svg>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                <?php } ?>
 
             </div>
 

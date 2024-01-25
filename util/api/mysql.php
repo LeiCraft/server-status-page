@@ -30,6 +30,7 @@
             $query = "CREATE TABLE IF NOT EXISTS host_outages (
                 id INT AUTO_INCREMENT,
                 host_name VARCHAR(255),
+                time DATETIME,
                 code INT(1) DEFAULT 1,
                 message VARCHAR(255) DEFAULT NULL,
                 fixed INT(1) DEFAULT 0,
@@ -47,6 +48,7 @@
             $query = "CREATE TABLE IF NOT EXISTS service_outages (
                 id INT AUTO_INCREMENT,
                 host_name VARCHAR(255),
+                time DATETIME,
                 service_name VARCHAR(255),
                 code INT(1) DEFAULT 1,
                 message VARCHAR(255) DEFAULT NULL,
@@ -80,33 +82,36 @@
         
     }
 
-    function getStats() {
+    function getHostOutages() {
         try {
-
             $stmt = mysqli_stmt_init(DatabaseConnection::getInstance()->getConnection());
-
-            $query = "SELECT * FROM stats";
+    
+            $query = "SELECT * FROM stats WHERE time >= CURDATE() - INTERVAL 30 DAY";
+    
             if (mysqli_stmt_prepare($stmt, $query)) {
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
-
-                if (mysqli_num_rows($result) === 0) {
-                    mysqli_stmt_close($stmt);
-                    return "none";
+    
+                $outages = []
+    
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $outages[] = $row;
                 }
-
-                $row = mysqli_fetch_assoc($result);
-
-                return $row;
+    
+                mysqli_stmt_close($stmt);
+    
+                return $outages;
             } else {
                 throw new Exception("Statement prepare failed");
                 return "error";
             }
         } catch (Exception $e) {
-            return "error: ". $e->getMessage();
+            return "error: " . $e->getMessage();
         }
+    }    
+
+    function addHostOutage() {
+
     }
-
-
 
 ?>

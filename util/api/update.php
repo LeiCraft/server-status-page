@@ -10,19 +10,20 @@ use Spatie\Async\Pool;
 
 $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
+
 function runUpdate() {
-    global $hosts;
+
+    fetchCurrentStaus();
+
+
+}
+
+
+function fetchCurrentStaus() {
     $results = [];
     
     // Create a new Pool
     $pool = Pool::create();
-
-    $hosts = [
-        "leicraftmc.de" => [],
-        "host03.leicraftmc.de" => [],
-        "host02.leicraftmc.de" => [],
-        "host04.leicraftmc.de" => []
-    ];
 
     // Use a for loop to add tasks to the pool for initial check
     foreach ($hosts as $fqdn => &$host_data) {
@@ -47,7 +48,7 @@ function runUpdate() {
     // Use a for loop to add tasks to the second pool for the second check
     foreach ($hosts as $fqdn => &$host_data) {
         $secondPool[] = async(function () use ($host_data) {
-            return runSecondCheck($host_data['initialResponse']);
+            return getHostCheckResult($host_data['initialResponse']);
         })->then(function ($output) use ($fqdn, $hosts) {
             global $hosts;
             $hosts[$fqdn] = $output;
@@ -57,10 +58,9 @@ function runUpdate() {
     // Wait for all tasks in the second check pool to complete
     await($secondPool);
 
-    return $hosts;
 }
 
-function runSecondCheck($initialResponse) {
+function getHostCheckResult($initialResponse) {
     if (isset($initialResponse['request_id'])) {
         // Make a second cURL request using the obtained request_id
         $checkResponse = makeCurlRequest('https://check-host.net/check-result/' . $initialResponse['request_id']);
@@ -71,7 +71,7 @@ function runSecondCheck($initialResponse) {
             return round($item[1] * 1000, 2); // Convert seconds to milliseconds
         }, $responseTimes);
 
-        $averageResponseTime = array_sum($responseTimesInMs) / count($responseTimesInMs);
+        $averageResponseTime = round(array_sum($responseTimesInMs) / count($responseTimesInMs), 1);
 
         // Determine the status based on the conditions
         if (count(array_filter($responseTimes, function ($item) {
@@ -99,23 +99,35 @@ function runSecondCheck($initialResponse) {
 }
 
 function makeCurlRequest($url) {
-    $headers = array(
-        'Accept: application/json',
-    );
 
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    try {
 
-    $response = curl_exec($ch);
+        $headers = array(
+            'Accept: application/json',
+        );
 
-    if (curl_errno($ch)) {
-        // Handle curl errors if needed
-        echo 'Curl error: ' . curl_error($ch);
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            // Handle curl errors if needed
+            echo 'Curl error: ' . curl_error($ch);
+        }
+
+        curl_close($ch);
+
+        return json_decode($response, true);
+
+    } catch () {
+        return null;
     }
 
-    curl_close($ch);
-
-    return json_decode($response, true);
 }
+
+
+function updateMySQL
+
 ?>
