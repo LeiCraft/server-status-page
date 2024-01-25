@@ -7,15 +7,15 @@ use Spatie\Async\Pool;
 $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
 
-function runUpdate() {
+/*function runUpdate() {
 
     fetchCurrentStaus();
     return "success";
 
-}
+}*/
 
 
-function fetchCurrentStaus() {
+function runUpdate() {
     $results = [];
     
     // Create a new Pool
