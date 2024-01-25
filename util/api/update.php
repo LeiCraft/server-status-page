@@ -11,15 +11,15 @@ use Spatie\Async\Pool;
 $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
 
 
-/*function runUpdate() {
+function runUpdate() {
 
     fetchCurrentStaus();
     return "success";
 
-}*/
+}
 
 
-function runUpdate() {
+function fetchCurrentStaus() {
     global $hosts;
     $results = [];
     
@@ -101,7 +101,7 @@ function getHostCheckResult($initialResponse) {
 
 function makeCurlRequest($url) {
 
-    try {
+    //try {
 
         $headers = array(
             'Accept: application/json',
@@ -122,9 +122,9 @@ function makeCurlRequest($url) {
 
         return json_decode($response, true);
 
-    } catch (Exception $e) {
+    /*} catch (Exception $e) {
         return null;
-    }
+    }*/
 
 }
 
