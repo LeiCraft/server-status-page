@@ -20,6 +20,7 @@ function runUpdate() {
 
 
 function fetchCurrentStaus() {
+    global $hosts;
     $results = [];
     
     // Create a new Pool
