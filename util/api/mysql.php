@@ -1,7 +1,5 @@
 <?php
 
-    $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . '/util/config/hosts.php';
-
     class DatabaseConnection {
         private static $instance; // The single instance
         private $connection;
@@ -96,6 +94,8 @@
                 $result = mysqli_stmt_get_result($stmt);
     
                 $outages = [];
+
+                $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . '/util/config/hosts.php';
 
                 foreach ($hosts as $host_id => $host_values) {
                     $outages[$host_id] = [];
