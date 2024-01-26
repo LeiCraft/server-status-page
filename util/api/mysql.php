@@ -5,7 +5,7 @@
         private $connection;
 
         private function __construct() {
-            $config = require $_SERVER['DOCUMENT_ROOT'] . '/util/config/config.php';
+            $config = require_once $_SERVER['DOCUMENT_ROOT'] . '/util/config/config.php';
 
             $host = $config['mysql']['host'] . ":" . $config['mysql']['port'];
             $username = $config['mysql']['user'];
