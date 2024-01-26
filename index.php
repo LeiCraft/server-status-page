@@ -170,6 +170,15 @@
 
                 status_charts.forEach((status_chart) => {
 
+                    const containerWidth = status_chart.clientWidth;
+                    if (containerWidth > 1000 ) {
+                        const daysToShow = 90;
+                    } else if (containerWidth > 550) {
+                        const daysToShow = 60;
+                    } else {
+                        const daysToShow = 30;
+                    }
+
                     function setRectsVisible() {
                     
                         if (!(daysToShow === 90)) {
@@ -184,15 +193,6 @@
                             });
                         }
                         
-                    }
-
-                    const containerWidth = status_chart.clientWidth;
-                    if (containerWidth > 1000 ) {
-                        const daysToShow = 90;
-                    } else if (containerWidth > 550) {
-                        const daysToShow = 60;
-                    } else {
-                        const daysToShow = 30;
                     }
 
                     if (!(daysToShow === status_chart.childNodes.length)) {
