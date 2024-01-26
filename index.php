@@ -31,7 +31,7 @@
                         <div class="host-status-inner-container">
                             <div class="host-title-container">
                                 <div class="host-title" id="<?php echo $host_id; ?>-host-collapse-button" data-bs-toggle="collapse" href="#<?php echo $host_id; ?>-host-collapse" role="button" aria-expanded="true" aria-controls="<?php echo $host_id; ?>-host-collapse" type="button">
-                                    <div class="host-title-text h5 mb-0">Main Server</div>
+                                    <div class="host-title-text h5 mb-0"><?php echo $host_data["name"]; ?></div>
                                     <div class="host-current-status ms-auto">Online</div>
                                     <div class="host-title-extend-img">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down host-title-arrow-icon" viewBox="0 0 16 16">
@@ -56,7 +56,7 @@
                                             <div class="service-status-inner-container">
                                                 <div class="host-title-container">
                                                     <div class="host-title collapsed" data-bs-toggle="collapse" href="#<?php echo $service_id; ?>-host-collapse2" role="button" aria-expanded="false" aria-controls="<?php echo $service_id; ?>-host-collapse2" type="button">
-                                                        <div class="host-title-text h5 mb-0">Main Server</div>
+                                                        <div class="host-title-text h5 mb-0"><?php echo $service_data["name"]; ?></div>
                                                         <div class="host-current-status ms-auto">Online</div>
                                                         <div class="host-title-extend-img">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down host-title-arrow-icon" viewBox="0 0 16 16">
