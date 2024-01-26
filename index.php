@@ -155,11 +155,14 @@
 
             function getStatusColor(status_code) {
                 switch (status_code) {
-                    case "green":
+                    case 0:
+                        // "green"
                         return "#198754";
-                    case "yellow":
+                    case 2:
+                        // "yellow"
                         return '#FFC107';
-                    case "red":
+                    case 1:
+                        // "red"
                         return "#DC3545";
                     default:
                         return "#B3BAC5";
