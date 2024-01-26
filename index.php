@@ -222,9 +222,9 @@
 
             <?php
 
-                $host_outages = json_encode(getHostOutages());
+                //$host_outages = json_encode(getHostOutages());
                 
-                echo "const hosts_outages_data = $host_outages;";
+                //echo "const hosts_outages_data = $host_outages;";
 
             ?>
 
