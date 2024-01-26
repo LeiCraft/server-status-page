@@ -218,6 +218,8 @@
 
                 $host_outages = getHostOutages();
 
+                echo $host_outages;
+
                 foreach($hosts as $host_id => $host_data) {
 
 
