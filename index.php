@@ -235,10 +235,31 @@
             function showTooltip(date, outage) {
                 const tooltip = document.createElement('div');
                 tooltip.className = 'tooltip';
-                tooltip.textContent = `Day: ${date.getUTCDate()}, Outage: ${outage.message || 'No message'}`;
+                
+                const tooltipText = document.createElement('span');
+                tooltipText.textContent = `Day: ${date.getUTCDate()}, Outage: ${outage.message || 'No message'}`;
+                tooltip.appendChild(tooltipText);
+
+                // Set position-fixed style
+                tooltip.style.position = 'fixed';
+                tooltip.style.background = '#f0f0f0'; // Set your desired background color
+                tooltip.style.padding = '5px';
+                tooltip.style.border = '1px solid #ccc'; // Set your desired border style
+                tooltip.style.borderRadius = '5px';
+                
+                // Ensure tooltip does not render outside of the page
+                const maxX = window.innerWidth - tooltip.offsetWidth - 10;
+                const maxY = window.innerHeight - tooltip.offsetHeight - 10;
+                
+                const x = Math.min(event.clientX, maxX);
+                const y = Math.min(event.clientY, maxY);
+
+                tooltip.style.left = `${x}px`;
+                tooltip.style.top = `${y}px`;
 
                 document.body.appendChild(tooltip);
             }
+
 
             function hideTooltip() {
                 const tooltip = document.querySelector('.tooltip');
