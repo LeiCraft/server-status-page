@@ -95,7 +95,7 @@
     
                 $outages = [];
 
-                $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . '/util/config/hosts.php';
+                $hosts = require $_SERVER['DOCUMENT_ROOT'] . '/util/config/hosts.php';
 
                 foreach ($hosts as $host_id => $host_values) {
                     $outages[$host_id] = [];

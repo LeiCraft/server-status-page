@@ -255,8 +255,6 @@
                 
                 echo "const hosts_outages_data = $host_outages;";
 
-                echo "const hosts_outages_data2 = " . json_encode($hosts) . ";";
-
             ?>
 
         status_charts.forEach((status_chart) => {
