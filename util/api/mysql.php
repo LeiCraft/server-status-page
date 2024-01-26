@@ -97,7 +97,7 @@
     
                 $outages = [];
 
-                while ($hosts as $host_id => $host_values) {
+                foreach ($hosts as $host_id => $host_values) {
                     $outages[$host_id] = [];
                 }
     
