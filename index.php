@@ -1,5 +1,9 @@
 <?php 
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
     $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/util/api/mysql.php";
 
@@ -257,11 +261,11 @@
 
             ?>
 
-        status_charts.forEach((status_chart) => {
+            status_charts.forEach((status_chart) => {
 
-            createStatusChart(status_chart, hosts_outages_data[status_chart.getAttribute("name")]);
+                createStatusChart(status_chart, hosts_outages_data[status_chart.getAttribute("name")]);
 
-        });
+            });
 
         })();
 
