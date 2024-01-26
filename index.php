@@ -255,7 +255,7 @@
                 
                 echo "const hosts_outages_data = $host_outages;";
 
-                echo json_encode($hosts);
+                echo "const hosts_outages_data2 = " . json_encode($hosts) . ";";
 
             ?>
 
