@@ -171,12 +171,13 @@
                 status_charts.forEach((status_chart) => {
 
                     const containerWidth = status_chart.clientWidth;
+                    let daysToShow;
                     if (containerWidth > 1000 ) {
-                        const daysToShow = 90;
+                        daysToShow = 90;
                     } else if (containerWidth > 550) {
-                        const daysToShow = 60;
+                        daysToShow = 60;
                     } else {
-                        const daysToShow = 30;
+                        daysToShow = 30;
                     }
 
                     function setRectsVisible() {
