@@ -86,7 +86,7 @@
         try {
             $stmt = mysqli_stmt_init(DatabaseConnection::getInstance()->getConnection());
     
-            $query = "SELECT * FROM stats WHERE time >= CURDATE() - INTERVAL 30 DAY";
+            $query = "SELECT * FROM stats WHERE time >= CURDATE() - INTERVAL 29 DAY";
     
             if (mysqli_stmt_prepare($stmt, $query)) {
                 mysqli_stmt_execute($stmt);

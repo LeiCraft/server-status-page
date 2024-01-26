@@ -22,12 +22,16 @@
 
             <div class="host-status-section mt-5 d-flex flex-column">
 
-                <?php foreach($hosts as $host) { ?>
+                <?php
+                    foreach($hosts as $host_id => $host_data) { 
+                
 
-                    <div class="main-host host-status-container">
+                ?>
+
+                    <div class="host-status-container">
                         <div class="host-status-inner-container">
                             <div class="host-title-container">
-                                <div class="host-title" id="main-host-collapse-button" data-bs-toggle="collapse" href="#main-host-collapse" role="button" aria-expanded="true" aria-controls="main-host-collapse" type="button">
+                                <div class="host-title" id="<?php echo $host_id; ?>-host-collapse-button" data-bs-toggle="collapse" href="#<?php echo $host_id; ?>-host-collapse" role="button" aria-expanded="true" aria-controls="<?php echo $host_id; ?>-host-collapse" type="button">
                                     <div class="host-title-text h5 mb-0">Main Server</div>
                                     <div class="host-current-status ms-auto">Online</div>
                                     <div class="host-title-extend-img">
@@ -36,18 +40,23 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <div class="collapse show" id="main-host-collapse">
+                                <div class="collapse show" id="<?php echo $host_id; ?>-host-collapse">
 
                                     <div class="chart-container mt-4">
-                                        <svg id="chart-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
+                                        <svg class="status-chart-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
                                     </div>
+
+                                    <?php
+                                        if (count($host_data["services"]) > 0) {
+                                            foreach($host_data["services"] as $service_id => $service_data) {
+                                    ?>
 
                                     <div class="service-status-section d-flex flex-column mt-2">
 
                                         <div class="service-status-container">
                                             <div class="service-status-inner-container">
                                                 <div class="host-title-container">
-                                                    <div class="host-title collapsed" data-bs-toggle="collapse" href="#main-host-collapse2" role="button" aria-expanded="false" aria-controls="main-host-collapse2" type="button">
+                                                    <div class="host-title collapsed" data-bs-toggle="collapse" href="#<?php echo $service_id; ?>-host-collapse2" role="button" aria-expanded="false" aria-controls="<?php echo $service_id; ?>-host-collapse2" type="button">
                                                         <div class="host-title-text h5 mb-0">Main Server</div>
                                                         <div class="host-current-status ms-auto">Online</div>
                                                         <div class="host-title-extend-img">
@@ -61,6 +70,9 @@
                                         </div>
 
                                     </div>
+
+                                    <?php }} ?>
+
                                 </div>
                             </div>
                         </div>
@@ -122,7 +134,7 @@
             width: 100%;
         }
 
-        #chart-svg {
+        .status-chart-svg {
             height: 34px;
             width: 100%; /* Full width of the container */
         }
@@ -130,85 +142,98 @@
     </style>
 
     <script>
-        
-        let serverStatusData = [];
 
-        // dummy data
-        for (let i = 0; i < 90; i++) {
-            let randInt = Math.floor(Math.random() * 3);
-            let status = "";
-            switch (randInt) {
-                case 0:
-                    status = "green";
-                    break;
-                case 1:
-                    status = "yellow";
-                    break;
-                case 2:
-                    status = "red";
-                    break;
-            }
-            serverStatusData.push(status);
-        }
+        (async function() {
 
-        const svg = document.getElementById('chart-svg');
-        let daysToShow = 30; // Default to last 30 days
+            const status_charts = document.getElementsByClassName('status-chart-svg');
 
-        // Calculate the total width of the SVG
-        function updateChart() {
-            const containerWidth = svg.clientWidth;
-            const factor = 0.04; // Adjust this factor based on your preference
-            //const boxWidth = containerWidth / serverStatusData.length - factor;
-            const boxWidth = 3;
-
-            // Adjust the days to show based on container width
-            if (containerWidth > 1000 ) {
-                daysToShow = 90;
-            } else if (containerWidth > 550) {
-                daysToShow = 60;
-            } else {
-                daysToShow = 30;
+            function getStatusColor(status_code) {
+                switch (status_code) {
+                    case "green":
+                        return "#198754";
+                    case "yellow":
+                        return '#FFC107';
+                    case "red":
+                        return "#DC3545";
+                    default:
+                        return "#B3BAC5";
+                }
             }
 
-            const totalWidth = daysToShow * (boxWidth + 2) - 2;
-            svg.setAttribute('viewBox', `0 0 ${totalWidth} 34`);
-            svg.innerHTML = ""; // Clear existing rectangles
+            function updateStatusCharts() {
 
-            serverStatusData.slice(-daysToShow).forEach((status, index) => {
-                const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-                rect.setAttribute('x', index * (boxWidth + 2));
-                rect.setAttribute('y', 0);
-                rect.setAttribute('width', boxWidth);
-                rect.setAttribute('height', 34);
-                rect.setAttribute('fill', getStatusColor(status));
-                //rect.setAttribute('rx', 8);
-                //rect.setAttribute('ry', 8);
+                status_charts.forEach((status_chart) => {
 
-                svg.appendChild(rect);
-            });
-        }
+                    function setRectsVisible() {
+                    
+                        if (!(daysToShow === 90)) {
+                            Array.from(status_chart.childNodes).slice(0, 90 - daysToShow).forEach((rect, index) => {
+                                rect.setAttribute("hidden", true);
+                            });
+                        }
 
-        function getStatusColor(status_code) {
-            switch (status_code) {
-                case "green":
-                    return "#198754";
-                case "yellow":
-                    return '#FFC107';
-                case "red":
-                    return "#DC3545";
-                default:
-                    return "#B3BAC5";
+                        if (!(daysToShow === 30)) {
+                            Array.from(status_chart.childNodes).slice(-daysToShow).forEach((rect, index) => {
+                                rect.removeAttribute("hidden");
+                            });
+                        }
+                        
+                    }
+
+                    const containerWidth = status_chart.clientWidth;
+                    if (containerWidth > 1000 ) {
+                        const daysToShow = 90;
+                    } else if (containerWidth > 550) {
+                        const daysToShow = 60;
+                    } else {
+                        const daysToShow = 30;
+                    }
+
+                    if (!(daysToShow === status_chart.childNodes.length)) {
+                        const totalWidth = daysToShow * (5) - 2;
+                        status_chart.setAttribute('viewBox', `0 0 ${totalWidth} 34`);
+                    }
+                });
+
             }
-        }
 
-        // Resize event listener to update the chart on container width changes
-        window.addEventListener('resize', updateChart);
+            function createStatusCharts(status_chart, statusData) {
 
-        document.getElementById("main-host-collapse-button").addEventListener("click", function (event) {
-            updateChart();
-        });
+                status_chart.setAttribute('viewBox', `0 0 0 34`);
 
-        updateChart();
+                statusData.forEach((status, index) => {
+                    const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+                    rect.setAttribute('x', index * (5));
+                    rect.setAttribute('y', 0);
+                    rect.setAttribute('width', 3);
+                    rect.setAttribute('height', 34);
+                    rect.setAttribute('fill', getStatusColor(status));
+                    status_chart.appendChild(rect);
+                });
+            }
+
+            window.addEventListener('resize', updateStatusCharts);
+
+            <?php 
+
+                foreach($hosts as $host_id => $host_data) {
+                    
+                    $host_outages = getHostOutages();
+
+
+                    if (count($host_data["services"]) > 0) {
+                        foreach($host_data["services"] as $service_id => $service_data) {
+                            
+
+
+                        }
+                    }
+
+                }           
+
+            ?>
+
+        })();
 
     </script>
 

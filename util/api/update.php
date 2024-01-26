@@ -28,14 +28,14 @@ function fetchCurrentStaus() {
     $pool = Pool::create();
 
     // Use a for loop to add tasks to the pool for initial check
-    foreach ($hosts as $host_name => &$host_data) {
+    foreach ($hosts as $host_id => &$host_data) {
         $fqdn = $host_data["fqdn"];
         $pool[] = async(function () use ($fqdn) {
             $initialResponse = makeCurlRequest("https://check-host.net/check-ping?host=$fqdn&node=de4.node.check-host.net");
             return $initialResponse;
-        })->then(function ($output) use ($host_name, $hosts) {
+        })->then(function ($output) use ($host_id, $hosts) {
             global $hosts;
-            $hosts[$host_name]["initialResponse"] = $output;
+            $hosts[$host_id]["initialResponse"] = $output;
         });
     }
 
@@ -49,12 +49,12 @@ function fetchCurrentStaus() {
     $secondPool = Pool::create();
 
     // Use a for loop to add tasks to the second pool for the second check
-    foreach ($hosts as $host_name => &$host_data) {
+    foreach ($hosts as $host_id => &$host_data) {
         $secondPool[] = async(function () use ($host_data) {
             return getHostCheckResult($host_data['initialResponse']);
-        })->then(function ($output) use ($host_name, $hosts) {
+        })->then(function ($output) use ($host_id, $hosts) {
             global $hosts;
-            $hosts[$host_name] = $output;
+            $hosts[$host_id] = $output;
         });
     }
 
