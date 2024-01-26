@@ -196,11 +196,8 @@
                         
                     }
 
-                    if (!(daysToShow === status_chart.childNodes.length)) {
-                        const totalWidth = daysToShow * (5) - 2;
-                        status_chart.removeAttribute();
-                        status_chart.setAttribute('viewBox', `0 0 ${totalWidth} 34`);
-                    }
+                    const totalWidth = daysToShow * (5) - 2;
+                    status_chart.setAttribute('viewBox', `0 0 ${totalWidth} 34`);
                 });
 
             }
