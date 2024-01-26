@@ -1,5 +1,7 @@
 <?php
 
+    $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . '/util/config/hosts.php';
+
     class DatabaseConnection {
         private static $instance; // The single instance
         private $connection;
@@ -29,11 +31,11 @@
         
             $query = "CREATE TABLE IF NOT EXISTS host_outages (
                 id INT AUTO_INCREMENT,
-                host_name VARCHAR(255),
-                time DATETIME,
+                host_id VARCHAR(255),
+                created_at DATETIME,
                 code INT(1) DEFAULT 1,
                 message VARCHAR(255) DEFAULT NULL,
-                fixed INT(1) DEFAULT 0,
+                fixed_at DATETIME DEFAULT NULL,
                 primary key (id)
             );";
 
@@ -47,12 +49,12 @@
         
             $query = "CREATE TABLE IF NOT EXISTS service_outages (
                 id INT AUTO_INCREMENT,
-                host_name VARCHAR(255),
-                time DATETIME,
+                host_id VARCHAR(255),
+                created_at DATETIME,
                 service_name VARCHAR(255),
                 code INT(1) DEFAULT 1,
                 message VARCHAR(255) DEFAULT NULL,
-                fixed INT(1) DEFAULT 0,
+                fixed_at DATETIME DEFAULT NULL,
                 primary key (id)
             );";
 
@@ -87,24 +89,20 @@
             $stmt = mysqli_stmt_init(DatabaseConnection::getInstance()->getConnection());
     
             // Query to fetch data for the last 30 days, sorted by time in descending order
-            $query = "SELECT * FROM host_outages WHERE time >= CURDATE() - INTERVAL 29 DAY ORDER BY time DESC";
+            $query = "SELECT * FROM host_outages WHERE created_at >= UTC_DATE() - INTERVAL 89 DAY ORDER BY created_at DESC";
     
             if (mysqli_stmt_prepare($stmt, $query)) {
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
     
                 $outages = [];
+
+                while ($hosts as $host_id => $host_values) {
+                    $outages[$host_id] = [];
+                }
     
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $hostName = $row['host_name'];
-    
-                    // Create a subarray for each host if it doesn't exist
-                    if (!isset($outages[$hostName])) {
-                        $outages[$hostName] = [];
-                    }
-    
-                    // Push the outage data to the corresponding host's subarray
-                    $outages[$hostName][] = $row;
+                    $outages[$row['host_id']][] = $row;
                 }
     
                 mysqli_stmt_close($stmt);

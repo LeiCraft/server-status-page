@@ -42,7 +42,7 @@
                                 <div class="collapse show" id="<?php echo $host_id; ?>-host-collapse">
 
                                     <div class="chart-container mt-4">
-                                        <svg class="status-chart-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
+                                        <svg class="status-chart-svg" name="<?php echo $host_id; ?>" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
                                     </div>
 
                                     <?php
@@ -63,6 +63,13 @@
                                                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke="currentColor" stroke-width="2"></path>
                                                             </svg>
                                                         </div>
+                                                    </div>
+                                                    <div class="collapse show" id="<?php echo $service_id; ?>-host-collapse">
+
+                                                        <div class="chart-container mt-4">
+                                                            <svg class="status-chart-svg" name="<?php echo $service_id; ?>" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -196,11 +203,11 @@
 
             }
 
-            function createStatusCharts(status_chart, statusData) {
+            function createStatusChart(status_chart, outagesData) {
 
                 status_chart.setAttribute('viewBox', `0 0 0 34`);
 
-                statusData.forEach((status, index) => {
+                outagesData.forEach((status, index) => {
                     const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
                     rect.setAttribute('x', index * (5));
                     rect.setAttribute('y', 0);
@@ -213,24 +220,19 @@
 
             window.addEventListener('resize', updateStatusCharts);
 
-            <?php 
+            <?php
 
-                $host_outages = getHostOutages();
-
-                foreach($hosts as $host_id => $host_data) {
-
-
-                    if (count($host_data["services"]) > 0) {
-                        foreach($host_data["services"] as $service_id => $service_data) {
-                            
-
-
-                        }
-                    }
-
-                }           
+                $host_outages = json_encode(getHostOutages());
+                
+                echo "const hosts_outages_data = $host_outages;";
 
             ?>
+
+        status_charts.forEach((status_chart) => {
+
+            createStatusChart(status_chart, hosts_outages_data[status_chart.getAttribute("name")]);
+
+        });
 
         })();
 
