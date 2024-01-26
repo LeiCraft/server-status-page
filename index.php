@@ -1,6 +1,6 @@
 <?php 
 
-    $hosts = require $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
+    $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/util/api/mysql.php";
 
 ?>
@@ -204,27 +204,58 @@
             }
 
             function createStatusChart(status_chart, outagesData) {
-
                 status_chart.setAttribute('viewBox', `0 0 0 34`);
 
-                outagesData.forEach((status, index) => {
+                const startDate = new Date();
+                startDate.setUTCHours(0, 0, 0, 0); // Set UTC time to midnight
+
+                for (let day = 0; day < 90; day++) {
+                    const currentDate = new Date(startDate);
+                    currentDate.setUTCDate(startDate.getUTCDate() + day);
+
+                    const outage = findOutageForDay(currentDate, outagesData);
+
                     const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-                    rect.setAttribute('x', index * (5));
+                    rect.setAttribute('x', day * 5);
                     rect.setAttribute('y', 0);
                     rect.setAttribute('width', 3);
                     rect.setAttribute('height', 34);
-                    rect.setAttribute('fill', getStatusColor(status));
+                    rect.setAttribute('fill', getStatusColor(outage));
                     status_chart.appendChild(rect);
-                });
+                }
             }
+
+            function findOutageForDay(currentDate, outagesData) {
+                for (const outage of outagesData) {
+                    const outageDate = new Date(outage.created_at);
+                    const fixedDate = outage.fixed_at ? new Date(outage.fixed_at) : null;
+
+                    outageDate.setUTCHours(0, 0, 0, 0);
+                    if (fixedDate) {
+                        fixedDate.setUTCHours(0, 0, 0, 0);
+                    }
+
+                    if (
+                        outageDate <= currentDate &&
+                        (!fixedDate || fixedDate >= currentDate)
+                    ) {
+                        return outage.code;
+                    }
+                }
+
+                return 0; // Status code for no outage (green)
+            }
+
 
             window.addEventListener('resize', updateStatusCharts);
 
             <?php
 
-                //$host_outages = json_encode(getHostOutages());
+                $host_outages = json_encode(getHostOutages());
                 
-                //echo "const hosts_outages_data = $host_outages;";
+                echo "const hosts_outages_data = $host_outages;";
+
+                echo json_encode($hosts);
 
             ?>
 
