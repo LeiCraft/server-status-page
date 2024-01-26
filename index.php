@@ -234,7 +234,7 @@
 
             function showTooltip(date, outage) {
                 const tooltip = document.createElement('div');
-                tooltip.className = 'tooltip';
+                tooltip.className = 'outage-tooltip';
                 
                 const tooltipText = document.createElement('span');
                 tooltipText.textContent = `Day: ${date.getUTCDate()}, Outage: ${outage.message || 'No message'}`;
@@ -262,7 +262,7 @@
 
 
             function hideTooltip() {
-                const tooltip = document.querySelector('.tooltip');
+                const tooltip = document.querySelector('.outage-tooltip');
                 if (tooltip) {
                     tooltip.remove();
                 }
