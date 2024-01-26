@@ -90,7 +90,7 @@ error_reporting(E_ALL);
         try {
             $stmt = mysqli_stmt_init(DatabaseConnection::getInstance()->getConnection());
     
-            $query = "SELECT * FROM stats WHERE time >= CURDATE() - INTERVAL 29 DAY";
+            $query = "SELECT * FROM host_outages WHERE time >= CURDATE() - INTERVAL 29 DAY";
     
             if (mysqli_stmt_prepare($stmt, $query)) {
                 mysqli_stmt_execute($stmt);
