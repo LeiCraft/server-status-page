@@ -218,7 +218,7 @@
 
                 $host_outages = getHostOutages();
 
-                echo $host_outages;
+                echo json_encode($host_outages);
 
                 foreach($hosts as $host_id => $host_data) {
 
