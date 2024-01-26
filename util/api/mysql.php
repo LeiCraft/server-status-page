@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
     class DatabaseConnection {
         private static $instance; // The single instance
         private $connection;
@@ -90,7 +86,8 @@ error_reporting(E_ALL);
         try {
             $stmt = mysqli_stmt_init(DatabaseConnection::getInstance()->getConnection());
     
-            $query = "SELECT * FROM host_outages WHERE time >= CURDATE() - INTERVAL 29 DAY";
+            // Query to fetch data for the last 30 days, sorted by time in descending order
+            $query = "SELECT * FROM host_outages WHERE time >= CURDATE() - INTERVAL 29 DAY ORDER BY time DESC";
     
             if (mysqli_stmt_prepare($stmt, $query)) {
                 mysqli_stmt_execute($stmt);
@@ -99,7 +96,15 @@ error_reporting(E_ALL);
                 $outages = [];
     
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $outages[] = $row;
+                    $hostName = $row['host_name'];
+    
+                    // Create a subarray for each host if it doesn't exist
+                    if (!isset($outages[$hostName])) {
+                        $outages[$hostName] = [];
+                    }
+    
+                    // Push the outage data to the corresponding host's subarray
+                    $outages[$hostName][] = $row;
                 }
     
                 mysqli_stmt_close($stmt);
@@ -112,7 +117,7 @@ error_reporting(E_ALL);
         } catch (Exception $e) {
             return "error: " . $e->getMessage();
         }
-    }    
+    }     
 
     function addHostOutage() {
 
