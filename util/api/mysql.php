@@ -82,7 +82,7 @@
         
     }
 
-    function getHostOutages() {
+    function getHostOutages($hosts) {
         try {
             $stmt = mysqli_stmt_init(DatabaseConnection::getInstance()->getConnection());
     
@@ -94,8 +94,6 @@
                 $result = mysqli_stmt_get_result($stmt);
     
                 $outages = [];
-
-                $hosts = require $_SERVER['DOCUMENT_ROOT'] . '/util/config/hosts.php';
 
                 foreach ($hosts as $host_id => $host_values) {
                     $outages[$host_id] = [];
