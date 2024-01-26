@@ -151,7 +151,7 @@
 
         (async function() {
 
-            const status_charts = document.getElementsByClassName('status-chart-svg');
+            const status_charts = Array.from(document.getElementsByClassName('status-chart-svg'));
 
             function getStatusColor(status_code) {
                 switch (status_code) {
