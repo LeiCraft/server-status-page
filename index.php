@@ -216,9 +216,9 @@
 
             <?php 
 
+                $host_outages = getHostOutages();
+
                 foreach($hosts as $host_id => $host_data) {
-                    
-                    $host_outages = getHostOutages();
 
 
                     if (count($host_data["services"]) > 0) {
