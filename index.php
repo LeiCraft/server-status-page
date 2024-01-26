@@ -3,6 +3,9 @@
     $hosts = require_once $_SERVER['DOCUMENT_ROOT'] . "/util/config/hosts.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/util/api/mysql.php";
 
+    $host_outages = getHostOutages();
+
+    echo json_encode($host_outages);
 
 ?>
 <!doctype html>
@@ -215,10 +218,6 @@
             window.addEventListener('resize', updateStatusCharts);
 
             <?php 
-
-                $host_outages = getHostOutages();
-
-                echo json_encode($host_outages);
 
                 foreach($hosts as $host_id => $host_data) {
 
