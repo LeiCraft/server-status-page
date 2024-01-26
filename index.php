@@ -223,7 +223,27 @@
                     rect.setAttribute('width', 3);
                     rect.setAttribute('height', 34);
                     rect.setAttribute('fill', getStatusColor(outage));
+
+                    // Add event listeners
+                    rect.addEventListener('mouseover', () => showTooltip(currentDate, outage));
+                    rect.addEventListener('mouseout', hideTooltip);
+
                     status_chart.appendChild(rect);
+                }
+            }
+
+            function showTooltip(date, outage) {
+                const tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                tooltip.textContent = `Day: ${date.getUTCDate()}, Outage: ${outage.message || 'No message'}`;
+
+                document.body.appendChild(tooltip);
+            }
+
+            function hideTooltip() {
+                const tooltip = document.querySelector('.tooltip');
+                if (tooltip) {
+                    tooltip.remove();
                 }
             }
 
