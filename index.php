@@ -258,9 +258,9 @@
 
                 // Set position-fixed style
                 tooltip.style.position = 'fixed';
-                tooltip.style.background = '#f0f0f0';
+                tooltip.style.background = '#1a1b2e';
                 tooltip.style.padding = '5px';
-                tooltip.style.border = '1px solid #ccc';
+                tooltip.style.border = '1px solid white';
                 tooltip.style.borderRadius = '5px';
                 
                 // Ensure tooltip does not render outside of the page
