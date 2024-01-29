@@ -212,7 +212,7 @@
 
                     // Add event listeners
                     rect.addEventListener('mouseover', () => showTooltip(currentDate, outage));
-                    rect.addEventListener('mouseout', hideTooltip);
+                    //rect.addEventListener('mouseout', hideTooltip);
 
                     console.log(day)
 
@@ -267,8 +267,8 @@
                 tooltip.style.borderRadius = '5px';
                 
                 // Ensure tooltip does not render outside of the page
-                const maxX = window.innerWidth - tooltip.offsetWidth - 10;
-                const maxY = window.innerHeight - tooltip.offsetHeight - 10;
+                const maxX = window.innerWidth - tooltip.offsetWidth - 100;
+                const maxY = window.innerHeight - tooltip.offsetHeight - 100;
                 
                 const x = Math.min(event.clientX, maxX);
                 const y = Math.min(event.clientY, maxY);
@@ -283,6 +283,7 @@
 
 
             function hideTooltip() {
+                console.log("hide");
                 const tooltip = document.querySelector('.outage-tooltip');
                 if (tooltip) {
                     tooltip.remove();
