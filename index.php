@@ -14,6 +14,7 @@
 
     <header id="header"><?php include $_SERVER['DOCUMENT_ROOT'] . "/util/defaults/header.php"; ?></header>
 
+    <!main class="mb-auto">
     <main class="mb-auto">
         <div class="container">
 
@@ -213,9 +214,7 @@
                     // Add event listeners
                     rect.addEventListener('mouseover', () => showTooltip(currentDate, outage));
                     rect.addEventListener('mouseout', hideTooltip);
-
-                    console.log(day)
-
+                    
                     status_chart.appendChild(rect);
                 }
             }
@@ -245,7 +244,7 @@
 
 
             function showTooltip(date, outage) {
-                //hideTooltip();
+                hideTooltip();
                 const tooltip = document.createElement('div');
                 tooltip.className = 'outage-tooltip';
                 
