@@ -215,8 +215,9 @@
                     const currentDate = new Date(startDate);
                     currentDate.setUTCDate(startDate.getUTCDate() + day);
 
+                    console.log(currentDate);
+
                     const outage = findOutageForDay(currentDate, outagesData);
-                    console.log(day, outagesData);
 
                     const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
                     rect.setAttribute('x', day * 5);
