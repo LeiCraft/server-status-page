@@ -240,7 +240,7 @@
                 tooltip.className = 'outage-tooltip';
                 
                 const tooltipText = document.createElement('span');
-                tooltipText.textContent = `Day: ${date.getUTCDate()}, Outage: ${outage.message || 'No message'}`;
+                tooltipText.textContent = `Day: ${date.getDate}, Outage: ${outage.message || 'No message'}`;
                 tooltip.appendChild(tooltipText);
 
                 // Set position-fixed style
@@ -285,11 +285,11 @@
                         outageDate <= currentDate &&
                         (!fixedDate || fixedDate >= currentDate)
                     ) {
-                        return outage.code;
+                        return {"code": outage.code, message: outage.message};
                     }
                 }
 
-                return 0; // Status code for no outage (green)
+                return {"code": 0, message: null}; // Status code for no outage (green)
             }
 
 
