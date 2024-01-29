@@ -262,14 +262,20 @@
                 tooltip.className = 'outage-tooltip';
                 
                 const tooltipText = document.createElement('span');
-                tooltipText.textContent = `Day: ${date.toString()}, Outage: ${outage.message || 'No message'}`;
+                const dateString = new Intl.DateTimeFormat('en-GB', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                }).format(date));
+
+                tooltipText.textContent = `Day: ${dateString}, Outage: ${outage.message || 'No message'}`;
                 tooltip.appendChild(tooltipText);
 
                 // Set position-fixed style
                 tooltip.style.position = 'fixed';
-                tooltip.style.background = '#f0f0f0'; // Set your desired background color
+                tooltip.style.background = '#f0f0f0';
                 tooltip.style.padding = '5px';
-                tooltip.style.border = '1px solid #ccc'; // Set your desired border style
+                tooltip.style.border = '1px solid #ccc';
                 tooltip.style.borderRadius = '5px';
                 
                 // Ensure tooltip does not render outside of the page
