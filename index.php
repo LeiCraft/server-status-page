@@ -212,7 +212,7 @@
 
                     // Add event listeners
                     rect.addEventListener('mouseover', () => showTooltip(currentDate, outage));
-                    //rect.addEventListener('mouseout', hideTooltip);
+                    rect.addEventListener('mouseout', hideTooltip);
 
                     console.log(day)
 
