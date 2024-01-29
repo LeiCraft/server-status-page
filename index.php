@@ -271,6 +271,8 @@
                 const x = Math.min(event.clientX, maxX);
                 const y = Math.min(event.clientY, maxY);
 
+                console.log(maxX, maxY, event.clientY, event.clientY);
+
                 tooltip.style.left = `${x}px`;
                 tooltip.style.top = `${y}px`;
 
