@@ -225,7 +225,7 @@
                     rect.setAttribute('y', 0);
                     rect.setAttribute('width', 3);
                     rect.setAttribute('height', 34);
-                    rect.setAttribute('fill', getStatusColor(outage));
+                    rect.setAttribute('fill', getStatusColor(outage.code));
 
                     // Add event listeners
                     rect.addEventListener('mouseover', () => showTooltip(currentDate, outage));
