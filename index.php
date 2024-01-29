@@ -240,7 +240,7 @@
                 tooltip.className = 'outage-tooltip';
                 
                 const tooltipText = document.createElement('span');
-                tooltipText.textContent = `Day: ${date.getDate}, Outage: ${outage.message || 'No message'}`;
+                tooltipText.textContent = `Day: ${date.toString()}, Outage: ${outage.message || 'No message'}`;
                 tooltip.appendChild(tooltipText);
 
                 // Set position-fixed style
