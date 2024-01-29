@@ -214,6 +214,8 @@
                     rect.addEventListener('mouseover', () => showTooltip(currentDate, outage));
                     rect.addEventListener('mouseout', hideTooltip);
 
+                    console.log(day)
+
                     status_chart.appendChild(rect);
                 }
             }
