@@ -209,14 +209,12 @@
                 status_chart.setAttribute('viewBox', `0 0 0 34`);
 
                 const startDate = new Date();
-                startDate.setUTCDate(startDate.getDate() - 89)
-                startDate.setUTCHours(0, 0, 0, 0); // Set UTC time to midnight
+                startDate.setDate(startDate.getDate() - 89);
+                startDate.setHours(0, 0, 0, 0); // Set local time to midnight
 
                 for (let day = 0; day < 90; day++) {
                     const currentDate = new Date(startDate);
-                    currentDate.setUTCDate(startDate.getUTCDate() + day);
-
-                    console.log(currentDate);
+                    currentDate.setDate(startDate.getDate() + day);
 
                     const outage = findOutageForDay(currentDate, outagesData);
 
@@ -234,6 +232,28 @@
                     status_chart.appendChild(rect);
                 }
             }
+
+            function findOutageForDay(currentDate, outagesData) {
+                for (const outage of outagesData) {
+                    const outageDate = new Date(outage.created_at + ' UTC'); // Convert UTC to local time
+                    const fixedDate = outage.fixed_at ? new Date(outage.fixed_at + ' UTC') : null;
+
+                    outageDate.setHours(0, 0, 0, 0);
+                    if (fixedDate) {
+                        fixedDate.setHours(0, 0, 0, 0);
+                    }
+
+                    if (
+                        outageDate <= currentDate &&
+                        (!fixedDate || fixedDate >= currentDate)
+                    ) {
+                        return { "code": outage.code, message: outage.message };
+                    }
+                }
+
+                return { "code": 0, message: null }; // Status code for no outage (green)
+            }
+
 
             function showTooltip(date, outage) {
                 const tooltip = document.createElement('div');
@@ -270,28 +290,6 @@
                     tooltip.remove();
                 }
             }
-
-            function findOutageForDay(currentDate, outagesData) {
-                for (const outage of outagesData) {
-                    const outageDate = new Date(outage.created_at);
-                    const fixedDate = outage.fixed_at ? new Date(outage.fixed_at) : null;
-
-                    outageDate.setUTCHours(0, 0, 0, 0);
-                    if (fixedDate) {
-                        fixedDate.setUTCHours(0, 0, 0, 0);
-                    }
-
-                    if (
-                        outageDate <= currentDate &&
-                        (!fixedDate || fixedDate >= currentDate)
-                    ) {
-                        return {"code": outage.code, message: outage.message};
-                    }
-                }
-
-                return {"code": 0, message: null}; // Status code for no outage (green)
-            }
-
 
             window.addEventListener('resize', updateStatusCharts);
 
