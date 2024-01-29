@@ -245,7 +245,7 @@
 
 
             function showTooltip(date, outage) {
-                hideTooltip();
+                //hideTooltip();
                 const tooltip = document.createElement('div');
                 tooltip.className = 'outage-tooltip';
                 
