@@ -249,7 +249,7 @@
                 const tooltipText = document.createElement('span');
                 const dateString = new Intl.DateTimeFormat('en-GB', {
                     day: 'numeric',
-                    month: 'long',
+                    month: 'short',
                     year: 'numeric',
                 }).format(date);
 
