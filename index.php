@@ -266,7 +266,7 @@
                     day: 'numeric',
                     month: 'long',
                     year: 'numeric',
-                }).format(date));
+                }).format(date);
 
                 tooltipText.textContent = `Day: ${dateString}, Outage: ${outage.message || 'No message'}`;
                 tooltip.appendChild(tooltipText);
