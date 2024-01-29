@@ -183,7 +183,7 @@
                         daysToShow = 30;
                     }
 
-                    const startWidth = (90 - daysToShow) * (5) - 2
+                    const startWidth = (90 - daysToShow) * (5)
                     const totalWidth = daysToShow * (5) - 2;
                     status_chart.setAttribute('viewBox', `${startWidth} 0 ${totalWidth} 34`);
                 });
