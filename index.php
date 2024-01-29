@@ -273,6 +273,8 @@
                     const outageDate = new Date(outage.created_at);
                     const fixedDate = outage.fixed_at ? new Date(outage.fixed_at) : null;
 
+                    console.log(outageDate, fixedDate)
+
                     outageDate.setUTCHours(0, 0, 0, 0);
                     if (fixedDate) {
                         fixedDate.setUTCHours(0, 0, 0, 0);
