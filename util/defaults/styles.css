@@ -22,7 +22,7 @@ body {
 }
 main {
     margin-top: 140px;
-    /*min-height: 60vh;*/
+    min-height: 60vh;
 }
 .nav-logo-text {
     padding-left: 6px;
