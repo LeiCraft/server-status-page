@@ -209,6 +209,7 @@
                 status_chart.setAttribute('viewBox', `0 0 0 34`);
 
                 const startDate = new Date();
+                startDate.setUTCDate(currentDate.getDate() - 89)
                 startDate.setUTCHours(0, 0, 0, 0); // Set UTC time to midnight
 
                 for (let day = 0; day < 90; day++) {
