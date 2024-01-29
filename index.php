@@ -187,13 +187,13 @@
                     
                         if (!(daysToShow === 90)) {
                             Array.from(status_chart.childNodes).slice(0, 90 - daysToShow).forEach((rect, index) => {
-                                rect.setAttribute("hidden", true);
+                                //rect.setAttribute("hidden", true);
                             });
                         }
 
                         if (!(daysToShow === 30)) {
                             Array.from(status_chart.childNodes).slice(-daysToShow).forEach((rect, index) => {
-                                rect.removeAttribute("hidden");
+                                //rect.removeAttribute("hidden");
                             });
                         }
                         
