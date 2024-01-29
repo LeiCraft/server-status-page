@@ -183,22 +183,7 @@
                         daysToShow = 30;
                     }
 
-                    function setRectsVisible() {
-                    
-                        if (!(daysToShow === 90)) {
-                            Array.from(status_chart.childNodes).slice(0, 90 - daysToShow).forEach((rect, index) => {
-                                //rect.setAttribute("hidden", true);
-                            });
-                        }
-
-                        if (!(daysToShow === 30)) {
-                            Array.from(status_chart.childNodes).slice(-daysToShow).forEach((rect, index) => {
-                                //rect.removeAttribute("hidden");
-                            });
-                        }
-                        
-                    }
-
+                    const startWidth = (90 - daysToShow) * (5) - 2
                     const totalWidth = daysToShow * (5) - 2;
                     status_chart.setAttribute('viewBox', `0 0 ${totalWidth} 34`);
                 });
