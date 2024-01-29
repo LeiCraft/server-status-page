@@ -238,6 +238,8 @@
                     const outageDate = new Date(outage.created_at + ' UTC'); // Convert UTC to local time
                     const fixedDate = outage.fixed_at ? new Date(outage.fixed_at + ' UTC') : null;
 
+                    console.log(outageDate);
+
                     outageDate.setHours(0, 0, 0, 0);
                     if (fixedDate) {
                         fixedDate.setHours(0, 0, 0, 0);
