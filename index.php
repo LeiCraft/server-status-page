@@ -267,8 +267,8 @@
                 tooltip.style.borderRadius = '5px';
                 
                 // Ensure tooltip does not render outside of the page
-                const maxX = window.innerWidth - tooltip.offsetWidth - 100;
-                const maxY = window.innerHeight - tooltip.offsetHeight - 100;
+                const maxX = window.innerWidth - tooltip.offsetWidth - 10;
+                const maxY = window.innerHeight - tooltip.offsetHeight - 10;
                 
                 const x = Math.min(event.clientX, maxX);
                 const y = Math.min(event.clientY, maxY);
