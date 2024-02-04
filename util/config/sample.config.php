@@ -3,11 +3,11 @@
 return [
     'token' => "",
     'mysql' => [
-        'host' => 'leicraftmc.de',
+        'host' => 'domain.tld',
         'port' => 3306,
-        'database' => 'STICP',
-        'user' => 'leicraft_et',
-        'password' => '',
+        'database' => 'statu',
+        'user' => 'user',
+        'password' => 'password',
     ]
 ];
 
