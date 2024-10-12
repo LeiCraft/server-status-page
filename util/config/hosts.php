@@ -7,7 +7,7 @@ return [
         "services" => []
     ],
     "host03" => [
-        "name" => "LiveAttack Server",
+        "name" => "Host03 Server",
         "fqdn" => "host03.leicraftmc.de",
         "services" => []
     ],
